@@ -1,0 +1,10 @@
+services:
+  msr_backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: msr_backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
