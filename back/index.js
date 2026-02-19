@@ -1,4 +1,5 @@
 const cron = require("node-cron");
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -123,9 +124,15 @@ app.use("/api", WhatsappRouter);
 app.use("/api", paymentHistoryRouter);
 app.use("/api", onlineTimeRouter);
 
-app.get("/", (req, res) => {
-  // syncLeads();
-  res.send(getRandomResponse());
+// app.get("/", (req, res) => {
+//   // syncLeads();
+//   res.send(getRandomResponse());
+// });
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 if (process.env.NODE_ENV === "production") {

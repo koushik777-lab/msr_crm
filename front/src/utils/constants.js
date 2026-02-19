@@ -1,4 +1,4 @@
-export const API_URI = "http://localhost:5001/api";
+export const API_URI = "/api";
 // export const API_URI = "https://msr-api.aytech.in/api";
 
 // export const API_URI = "https://msr-backend.vercel.app/api";
