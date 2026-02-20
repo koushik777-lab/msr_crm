@@ -21,7 +21,7 @@ const createPaymentLink = async (req, res) => {
       "https://api.razorpay.com/v1/payment_links",
       {
         currency: currency,
-        amount: amount * 100, // amount in paise
+        amount: Math.round(amount * 100), // amount in paise
         expire_by,
         customer,
         description,
@@ -43,8 +43,8 @@ const createPaymentLink = async (req, res) => {
       .status(201)
       .json({ message: "Payment link created", data: paymentLink });
   } catch (error) {
-    console.error(error?.message);
-    return res.status(500).json({ message: "Internal server error" });
+    console.error("Payment Link Error:", error?.response?.data || error?.message);
+    return res.status(500).json({ message: "Internal server error", details: error?.response?.data });
   }
 };
 

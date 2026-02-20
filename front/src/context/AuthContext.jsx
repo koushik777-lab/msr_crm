@@ -29,13 +29,13 @@ export const AuthProvider = ({ children }) => {
     } else if (user && user.email == "sales@msr.com" && !isSalesManager) {
       setIsSalesManager(true);
       setIsAgent(false);
-    } else if (user && user.email == "admin@msr.com") {
+    } else if (user && (user.email == "admin@msr.com")) {
       // setIsSalesManager(true);
       setIsAgent(false);
     } else if (user && user.type == "agent") {
       setIsAgent(true);
     }
-  }, [user]);
+  }, [user, isBackend, isSalesManager]);
 
   const logout = () => {
     localStorage.removeItem("admin");

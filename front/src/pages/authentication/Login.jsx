@@ -66,7 +66,7 @@ const Login = () => {
               <img src={msrLogo} alt="MSR Logo" className="h-16" />
             </div>
             <h2 className="text-2xl font-bold mb-2 text-gray-800 text-center">
-              Log in to your account
+              Log in to your account !
             </h2>
             <p className="text-gray-600 mb-8 text-center">
               Welcome back ! Please enter your details.

@@ -242,9 +242,15 @@ const Payment = () => {
                   Final amount will be{" "}
                   {formik.values.currency == "INR"
                     ? "₹" +
-                    (formik.values.amount + 0.025 * formik.values.amount)
+                    (
+                      formik.values.amount +
+                      0.025 * formik.values.amount
+                    ).toFixed(2)
                     : "$" +
-                    (formik.values.amount + 0.035 * formik.values.amount)}
+                    (
+                      formik.values.amount +
+                      0.035 * formik.values.amount
+                    ).toFixed(2)}
                 </div>
               )}
 
