@@ -175,8 +175,6 @@ if (process.env.NODE_ENV === "production") {
   console.log("Jobs scheduled");
 }
 
-const PORT = process.env.PORT || 5001;
-
 connectToDb()
   .then(() => {
     console.log("Connected to database");
