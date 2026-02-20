@@ -1,8 +1,0 @@
-{
-    "name": "msr-crm-hostinger-deployment",
-    "version": "1.0.0",
-    "scripts": {
-        "postinstall": "cd back && npm install",
-        "start": "cd back && node index.js"
-    }
-}
