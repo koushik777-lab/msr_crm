@@ -1,4 +1,4 @@
-in devolopmant mode
+1. in devolopmant mode
 cd backend
 npm run dev
 
@@ -6,7 +6,7 @@ cd frontend
 npm run dev
 
 
-in production mode
+2. in production mode
 cd backend
 npm run build-ui (optional)
 npm start
