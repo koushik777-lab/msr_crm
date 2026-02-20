@@ -1,0 +1,13 @@
+in devolopmant mode
+cd backend
+npm run dev
+
+cd frontend
+npm run dev
+
+
+in production mode
+cd backend
+npm run build-ui (optional)
+npm start
+
