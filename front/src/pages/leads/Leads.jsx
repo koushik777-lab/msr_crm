@@ -120,7 +120,7 @@ const Leads = () => {
         })),
       );
       // console.log(agents);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   async function handleUpdateAgent(val) {
@@ -241,9 +241,9 @@ const Leads = () => {
           showBtn={true}
           addbuttonText={"Add Lead"}
         >
-          <div className="flex items-center gap-6 cursor-pointer mt-1">
+          <div className="flex flex-wrap items-center gap-2">
             {!isAgent && (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 shrink-0">
                 <TextField
                   label="Start Date"
                   type="date"
@@ -258,6 +258,7 @@ const Leads = () => {
                     },
                   }}
                   size="small"
+                  sx={{ width: 130 }}
                 />
                 <TextField
                   label="End Date"
@@ -273,20 +274,20 @@ const Leads = () => {
                       min: startDate || undefined,
                     },
                   }}
+                  sx={{ width: 130 }}
                 />
                 {(startDate || endDate) && (
                   <Button
                     size="small"
                     variant="outlined"
                     onClick={clearDateFilter}
-                    sx={{ height: "40px" }}
+                    sx={{ height: "40px", minWidth: "60px" }}
                   >
                     Clear
                   </Button>
                 )}
               </div>
             )}
-            {/* {!isAgent && ( */}
             <div>
               <TextField
                 type="text"
@@ -302,6 +303,7 @@ const Leads = () => {
                   }
                 }}
                 size="small"
+                sx={{ width: 140 }}
                 slotProps={{
                   inputLabel: {
                     shrink: true,
@@ -309,13 +311,12 @@ const Leads = () => {
                 }}
               />
             </div>
-            {/* )} */}
-            <div>
+            <div className="shrink-0">
               <Autocomplete
                 id="combo-box-demo"
                 options={LEAD_STATUS}
                 // getOptionLabel={(option) => option.name}
-                style={{ minWidth: 200 }}
+                style={{ width: 140 }}
                 onChange={(e, val) => {
                   // console.log(val)
                   setSelectedStatus(val);
@@ -335,12 +336,12 @@ const Leads = () => {
 
             {!isAgent && (
               <>
-                <div>
+                <div className="shrink-0">
                   <Autocomplete
                     id="combo-box-demo"
                     options={agents}
                     getOptionLabel={(option) => option.name}
-                    style={{ minWidth: 200 }}
+                    style={{ width: 150 }}
                     onChange={(e, val) => {
                       // console.log(val);
                       // setSelectedStatus(val);
@@ -353,12 +354,12 @@ const Leads = () => {
                         label="Assign Agent"
                         variant="outlined"
                         size="small"
-                        // value={selectedStatus}
+                      // value={selectedStatus}
                       />
                     )}
                   />
                 </div>
-                <div>
+                <div className="shrink-0">
                   <Button
                     variant="contained"
                     onClick={() => setPopupType("State")}
@@ -385,9 +386,9 @@ const Leads = () => {
                   size="small"
                   disabled={excelUploading}
                   sx={{
-                    minWidth: "40px",
-                    width: "40px",
-                    height: "40px",
+                    minWidth: "36px",
+                    width: "36px",
+                    height: "36px",
                     backgroundColor: "#2e7d32",
                     "&:hover": {
                       backgroundColor: "#1b5e20",
@@ -402,146 +403,114 @@ const Leads = () => {
                     </>
                   )}
                 </Button>
-                <div className=" text-[#2e7d32] text-xs mt-1 ">Upload Data</div>
+                <div className=" text-[#2e7d32] text-[10px] mt-0.5 ">Upload Data</div>
               </div>
             )}
           </div>
         </BackHeader>
-        <div className="flex  gap-4 my-6 ">
-          <div
-            className={`   basis-[15vw] h-[74vh] overflow-y-scroll bg-white  rounded-xl px-2  py-4 border-[var(--color-pri)] border `}
-          >
-            <h2 className=" text-center sticky font-bold text-lg text-black ">
-              Filter By Lead Source
-            </h2>
-            {/* Sidebar content */}
-            <TextField
-              slotProps={{
-                inputLabel: {
-                  // shrink: true,
-                  style: { color: "black" },
-                },
-              }}
-              size="small"
-              placeholder="Instagram..."
-              label="Search Source"
-              sx={{
-                width: "100%",
-                marginTop: "1rem",
-                color: "black",
-                //     '& .MuiOutlinedInput-root': {
-                // '& fieldset': {
-                //   borderColor: 'black', // Default border color
-                // },
-                // '&:hover fieldset': {
-                //   borderColor: 'black', // Border color on hover
-                // },
-                // '&.Mui-focused fieldset': {
-                //   borderColor: 'black', // Border color when focused
-                // },
-                //   }
-              }}
-              variant="outlined"
-              onChange={(e) => {
-                setQuerySource(
-                  marketingChannels.filter((source) =>
-                    source.toLowerCase().includes(e.target.value.toLowerCase()),
-                  ),
-                );
-              }}
-            />
-            <div className="flex flex-col gap-3 mt-4">
-              {querySource.map((source) => (
-                <div
-                  key={source}
-                  onClick={() => handleSelectedSource(source)}
-                  className={`px-2 xl:px-4 py-2 rounded-lg text-sm font-medium cursor-pointer transition-all duration-200 flex items-center  ${
-                    selectedSource === source
-                      ? "bg-[var(--color-pri)] text-white shadow-md transform "
-                      : "hover:border-black border-[var(--color-sec)] border text-black "
-                  }`}
-                >
-                  {source}
-                  <span className="ml-1 text-xs ">
-                    ({sourceCount[source] ? sourceCount[source] : 0})
-                  </span>
-                </div>
-              ))}
+        <div className="flex gap-6 my-6 h-[calc(100vh-140px)]">
+          {/* Left Sidebar Filter */}
+          <div className="w-[280px] flex-shrink-0 flex flex-col bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="p-4 border-b border-gray-100 bg-gray-50/50">
+              <h2 className="font-bold text-gray-800 text-sm uppercase tracking-wider">
+                Filter By Source
+              </h2>
+            </div>
+
+            <div className="p-4 flex-1 flex flex-col overflow-hidden">
+              <TextField
+                size="small"
+                placeholder="Search..."
+                sx={{
+                  width: "100%",
+                  marginBottom: "1rem",
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "8px",
+                  }
+                }}
+                variant="outlined"
+                onChange={(e) => {
+                  setQuerySource(
+                    marketingChannels.filter((source) =>
+                      source.toLowerCase().includes(e.target.value.toLowerCase()),
+                    ),
+                  );
+                }}
+              />
+              <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar flex flex-col gap-2">
+                {querySource.map((source) => (
+                  <div
+                    key={source}
+                    onClick={() => handleSelectedSource(source)}
+                    className={`px-3 py-2.5 rounded-xl text-sm font-medium cursor-pointer transition-all duration-200 flex items-center justify-between border ${selectedSource === source
+                      ? "bg-sky-50 border-sky-200 text-sky-700 shadow-sm"
+                      : "bg-white border-transparent hover:border-gray-200 text-gray-600 hover:bg-gray-50"
+                      }`}
+                  >
+                    <span className="truncate mr-2">{source}</span>
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${selectedSource === source ? 'bg-sky-100 text-sky-700' : 'bg-gray-100 text-gray-500'
+                      }`}>
+                      {sourceCount[source] || 0}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="flex-1 overflow-y-auto  no-scrollbar pt-2">
-            {/* <Paper elevation={2} className="mx-4 mb-10 p-4 rounded-lg">
-            <div className="text-black text-lg font-semibold mb-4">
-              <span className="border-b-2 border-blue-500 pb-1">
-                Filter By Lead Source
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-3 ">
-              {marketingChannels.map((source) => (
-                <div
-                  key={source}
-                  onClick={() => handleSelectedSource(source)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium cursor-pointer transition-all duration-200 flex items-center  ${
-                    selectedSource === source
-                      ? "bg-blue-500 text-white shadow-md transform scale-105"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
-                >
-                  {source}
-                  <span className="ml-1 text-xs ">
-                    ({sourceCount[source] ? sourceCount[source] : 0})
-                  </span>
-                </div>
-              ))}
-            </div>
-          </Paper> */}
 
+          {/* Main Content Area */}
+          <div className="flex-1 overflow-y-auto no-scrollbar bg-white rounded-2xl shadow-sm border border-gray-100 relative">
             {loading ? (
-              <div className="w-full h-full flex justify-center">
+              <div className="w-full h-full flex justify-center items-center">
                 <Loader />
               </div>
             ) : leadData.length === 0 ? (
-              <div className="w-full h-40 flex justify-center items-center">
-                <Paper elevation={2} className="p-8 text-center">
-                  <div className="text-xl font-medium text-gray-600 mb-2">
+              <div className="w-full h-full flex justify-center items-center">
+                <div className="text-center p-8 bg-gray-50 rounded-2xl max-w-md">
+                  <div className="text-xl font-medium text-gray-800 mb-2">
                     No leads available
                   </div>
-                  <div className="text-gray-500">
+                  <div className="text-gray-500 text-sm">
                     {selectedSource && selectedStatus
                       ? `No leads found for "${selectedSource}" with status "${selectedStatus}"`
                       : selectedSource
                         ? `No leads found for source "${selectedSource}"`
                         : selectedStatus
                           ? `No leads found with status "${selectedStatus}"`
-                          : "No leads available"}
+                          : "Try adjusting your filters to see more results."}
                   </div>
-                </Paper>
+                </div>
               </div>
             ) : (
-              <>
-                <LeadsTable
-                  tableHeaders={LeadstableHeading}
-                  tableBody={leadData}
-                  setLeadData={setLeadData}
-                  agents={agents}
-                  fetchLeads={fetchLeads}
-                  selectedLeads={selectedLeads}
-                  setSelectedLeads={setSelectedLeads}
-                />
+              <div className="flex flex-col h-full bg-white">
+                <div className="flex-1 overflow-auto">
+                  <LeadsTable
+                    tableHeaders={LeadstableHeading}
+                    tableBody={leadData}
+                    setLeadData={setLeadData}
+                    agents={agents}
+                    fetchLeads={fetchLeads}
+                    selectedLeads={selectedLeads}
+                    setSelectedLeads={setSelectedLeads}
+                  />
+                </div>
 
-                <Pagination
-                  page={currPage}
-                  onChange={(e, val) => {
-                    setCurrPage(val);
-                    val != currPage && fetchLeads(val);
-                  }}
-                  className=" w-fit mx-auto mt-6"
-                  size="large"
-                  count={totalPages}
-                  showFirstButton
-                  showLastButton
-                />
-              </>
+                <div className="p-4 border-t border-gray-100 flex justify-center bg-gray-50/50">
+                  <Pagination
+                    page={currPage}
+                    onChange={(e, val) => {
+                      setCurrPage(val);
+                      val != currPage && fetchLeads(val);
+                    }}
+                    size="medium"
+                    count={totalPages}
+                    showFirstButton
+                    showLastButton
+                    shape="rounded"
+                    color="primary"
+                  />
+                </div>
+              </div>
             )}
           </div>
         </div>

@@ -646,12 +646,12 @@ const Quotation = () => {
         key={"quotation"}
       >
         {showAll && !openManualQuotation && (
-          <div className="flex gap-4 mt-2 ">
+          <div className="flex flex-wrap items-center gap-3">
             {!isAgent && !isBackend && (
               <Autocomplete
                 options={agentList ? agentList : []}
                 getOptionLabel={(option) => option.name}
-                sx={{ minWidth: 150 }}
+                sx={{ width: 140 }}
                 value={selectedAgent}
                 onChange={(e, val) => {
                   setSelectedAgent(val);
@@ -679,7 +679,7 @@ const Quotation = () => {
                   { name: "Shop My Barcode", key: "smb" },
                 ]}
                 getOptionLabel={(option) => option.name}
-                sx={{ minWidth: 150 }}
+                sx={{ width: 140 }}
                 value={selectedQuotationType}
                 disableClearable
                 onChange={(e, val) => {
@@ -704,6 +704,7 @@ const Quotation = () => {
               variant="contained"
               onClick={() => setIsShowDate(!isShowDate)}
               size="small"
+              sx={{ flexShrink: 0, whiteSpace: "nowrap" }}
             >
               Select date Range
             </Button>
@@ -716,10 +717,10 @@ const Quotation = () => {
                 })
               }
               size="small"
+              sx={{ flexShrink: 0, whiteSpace: "nowrap" }}
             >
               Clear Range
             </Button>
-            {/* </Button> */}
             {!isAgent && !isBackend && !isSalesManager && (
               <Button
                 variant="contained"
@@ -727,6 +728,7 @@ const Quotation = () => {
                 onClick={() => {
                   setIsOpenBulk(true);
                 }}
+                sx={{ flexShrink: 0, whiteSpace: "nowrap" }}
               >
                 Bulk Transfer
               </Button>
@@ -789,7 +791,7 @@ const Quotation = () => {
                 variant="contained"
                 size="small"
                 style={{ backgroundColor: "#4CAF50" }}
-                sx={{ textWrap: "nowrap", maxWidth: "300px" }}
+                sx={{ whiteSpace: "nowrap", flexShrink: 0 }}
                 onClick={() => setOpenExportPopup(true)}
               >
                 Export to Excel
@@ -797,8 +799,9 @@ const Quotation = () => {
             )}
             <TextField
               label="Search "
-              placeholder="Search by Name, Number, Company Name "
+              placeholder="Search by Name/Number"
               size="small"
+              sx={{ width: 180 }}
               onChange={DEBOUNCE(
                 (e) => setSearchQuotations(e.target.value),
                 500,
@@ -889,10 +892,10 @@ const Quotation = () => {
                 options={
                   agentList
                     ? [
-                        "admin",
-                        "Sales Manager",
-                        ...agentList.map((item) => item?.name),
-                      ]
+                      "admin",
+                      "Sales Manager",
+                      ...agentList.map((item) => item?.name),
+                    ]
                     : []
                 }
                 style={{ minWidth: 200 }}
@@ -913,7 +916,7 @@ const Quotation = () => {
                     label="Transfer from "
                     variant="outlined"
                     size="small"
-                    // value={selectedStatus}
+                  // value={selectedStatus}
                   />
                 )}
               />
@@ -925,10 +928,10 @@ const Quotation = () => {
                 options={
                   agentList
                     ? [
-                        "admin",
-                        "Sales Manager",
-                        ...agentList.map((item) => item?.name),
-                      ]
+                      "admin",
+                      "Sales Manager",
+                      ...agentList.map((item) => item?.name),
+                    ]
                     : []
                 }
                 // getOptionLabel={(option) => option.name}
@@ -950,7 +953,7 @@ const Quotation = () => {
                     label="Transfer To "
                     variant="outlined"
                     size="small"
-                    // value={selectedStatus}
+                  // value={selectedStatus}
                   />
                 )}
               />
@@ -1060,27 +1063,32 @@ const Quotation = () => {
           <Loader />
         </div>
       ) : (
-        <main className="container mx-auto p-4 md:p-6">
+        <main className="w-full h-full p-4 md:p-6 bg-gray-50 rounded-xl flex-1">
           {!showAll ? (
-            <div className="bg-white rounded-lg shadow-lg p-4 md:p-6">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 transition-shadow hover:shadow-md">
+              <h2 className="text-xl font-bold text-gray-800 mb-6 border-b border-gray-100 pb-4">
+                {IS_CLIENT_SHEET ? "Client Details" : "Quotation Details"}
+              </h2>
               {getFormBasedOnPdfType()}
             </div>
           ) : (
-            <div>
-              <QuotationTable
-                // tableHeadersprops={tableHeaderSmb}
-                quotationType={selectedQuotationType?.key || "msr"}
-                quotations={allQuotaions}
-                handleEditQuotation={handleEditQuotaion}
-                handleViewQuotation={handleViewQuotaion}
-                calculateTotalQuotAmt={calculateTotalQuotAmt}
-                pagination={pagination}
-                onPageChange={(page) =>
-                  setPagination((prev) => ({ ...prev, page }))
-                }
-                IS_CLIENT_SHEET={IS_CLIENT_SHEET}
-              />
-              {/* <div className="flex justify-center mt-4">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 transition-shadow hover:shadow-md h-full flex flex-col">
+              <div className="flex-1 overflow-auto">
+                <QuotationTable
+                  // tableHeadersprops={tableHeaderSmb}
+                  quotationType={selectedQuotationType?.key || "msr"}
+                  quotations={allQuotaions}
+                  handleEditQuotation={handleEditQuotaion}
+                  handleViewQuotation={handleViewQuotaion}
+                  calculateTotalQuotAmt={calculateTotalQuotAmt}
+                  pagination={pagination}
+                  onPageChange={(page) =>
+                    setPagination((prev) => ({ ...prev, page }))
+                  }
+                  IS_CLIENT_SHEET={IS_CLIENT_SHEET}
+                />
+              </div>
+              {/* <div className="flex justify-center mt-4 border-t border-gray-100 pt-4 bg-gray-50/50 rounded-b-2xl">
                 <Pagination
                   count={Math.ceil(allQuotaions.length / pagination.limit)}
                   page={pagination.page}
@@ -1090,6 +1098,7 @@ const Quotation = () => {
                   }}
                   variant="outlined"
                   shape="rounded"
+                  color="primary"
                 />
               </div> */}
             </div>

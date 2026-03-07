@@ -40,21 +40,21 @@ export default function NotesPopup({
           id="notes"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[120px] resize-none"
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 min-h-[120px] resize-none"
           placeholder="Enter your notes here..."
         ></textarea>
         <div className="col-span-2 flex justify-center mt-4 gap-4">
           <button
             type="submit"
             onClick={onClose}
-            className={`bg-blue-600 disabled:bg-gray-700 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition disabled:cursor-not-allowed cursor-pointer`}
+            className={`bg-sky-600 disabled:bg-gray-700 text-white px-6 py-2 rounded-md hover:bg-sky-700 transition disabled:cursor-not-allowed cursor-pointer`}
           >
             Close
           </button>
           <button
             type="submit"
             onClick={isRenewal ? () => handleNotesChange(notes) : handleSave}
-            className={`bg-blue-600 disabled:bg-gray-700 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition disabled:cursor-not-allowed cursor-pointer`}
+            className={`bg-sky-600 disabled:bg-gray-700 text-white px-6 py-2 rounded-md hover:bg-sky-700 transition disabled:cursor-not-allowed cursor-pointer`}
           >
             Save
           </button>

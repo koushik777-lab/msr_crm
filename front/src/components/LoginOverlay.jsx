@@ -42,7 +42,7 @@ const LoginOverlay = () => {
           className={`w-full font-medium py-2 px-4 rounded transition duration-300 ${
             loading
               ? "bg-gray-400 text-gray-100 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700 text-white"
+              : "bg-sky-600 hover:bg-sky-700 text-white"
           }`}
           onClick={handleLogin}
           disabled={loading}

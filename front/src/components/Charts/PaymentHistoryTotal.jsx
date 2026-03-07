@@ -151,7 +151,7 @@ const PaymentHistoryTotal = () => {
                 >
                   <div className="flex flex-col items-center justify-center">
                     <svg
-                      className="animate-spin h-10 w-10 text-blue-500 mb-3"
+                      className="animate-spin h-10 w-10 text-sky-500 mb-3"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"

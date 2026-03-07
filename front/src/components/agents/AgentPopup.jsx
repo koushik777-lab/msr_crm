@@ -258,7 +258,7 @@ export default function AddAgentPopup({ onClose, onSave, isEdit, agentData }) {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`bg-blue-600 disabled:bg-gray-700 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition disabled:cursor-not-allowed cursor-pointer`}
+              className={`bg-sky-600 disabled:bg-gray-700 text-white px-6 py-2 rounded-md hover:bg-sky-700 transition disabled:cursor-not-allowed cursor-pointer`}
             >
               Save
             </button>

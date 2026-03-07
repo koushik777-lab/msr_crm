@@ -203,7 +203,7 @@ function OuotationPopUp({ isOpen, onClose, data }) {
         }}
       >
         <div className="flex justify-between items-center mb-6 border-b pb-4">
-          <h2 className="text-2xl font-bold text-blue-700">
+          <h2 className="text-2xl font-bold text-sky-700">
             Quotation Details
           </h2>
           <button
@@ -242,7 +242,7 @@ function OuotationPopUp({ isOpen, onClose, data }) {
         <div className="mt-8 flex justify-end pt-4 border-t">
           <button
             onClick={onClose}
-            className="px-6 py-2.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0"
+            className="px-6 py-2.5 bg-sky-600 text-white rounded-md hover:bg-sky-700 transition-colors shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0"
           >
             Close
           </button>
@@ -257,10 +257,10 @@ const QuotationCard = ({ data }) => {
   console.log(data);
 
   return (
-    <div className="bg-white rounded-lg p-5 mb-4 shadow-md border-l-4 border-blue-600 hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1">
+    <div className="bg-white rounded-lg p-5 mb-4 shadow-md border-l-4 border-sky-600 hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="flex items-start space-x-3">
-          <div className="text-blue-600 mt-1">
+          <div className="text-sky-600 mt-1">
             <FiFileText size={18} />
           </div>
           <div>
@@ -270,7 +270,7 @@ const QuotationCard = ({ data }) => {
         </div>
 
         <div className="flex items-start space-x-3">
-          <div className="text-blue-600 mt-1">
+          <div className="text-sky-600 mt-1">
             <FiBriefcase size={18} />
           </div>
           <div>
@@ -280,7 +280,7 @@ const QuotationCard = ({ data }) => {
         </div>
 
         <div className="flex items-start space-x-3">
-          <div className="text-blue-600 mt-1">
+          <div className="text-sky-600 mt-1">
             <FiUser size={18} />
           </div>
           <div>
@@ -290,7 +290,7 @@ const QuotationCard = ({ data }) => {
         </div>
 
         <div className="flex items-start space-x-3">
-          <div className="text-blue-600 mt-1">
+          <div className="text-sky-600 mt-1">
             <FiUser size={18} />
           </div>
           <div>
@@ -300,7 +300,7 @@ const QuotationCard = ({ data }) => {
         </div>
 
         <div className="flex items-start space-x-3">
-          <div className="text-blue-600 mt-1">
+          <div className="text-sky-600 mt-1">
             <FiPhone size={18} />
           </div>
           <div>

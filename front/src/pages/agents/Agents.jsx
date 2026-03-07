@@ -76,7 +76,7 @@ const Agents = () => {
       setData(agents);
       setLoading(false);
       console.log(agents);
-    } catch (error) {}
+    } catch (error) { }
   }
   useEffect(() => {
     fetchData();
@@ -100,7 +100,7 @@ const Agents = () => {
         <AgentCallPopup agentId={agentId} onClose={() => setShowPopup(false)} />
       )}
 
-      <div className="w-full flex flex-col">
+      <div className="w-full h-full flex flex-col bg-gray-50 rounded-xl">
         <BackHeader
           title={"Agents"}
           showBtn={!isSalesManager}
@@ -114,19 +114,20 @@ const Agents = () => {
               variant="contained"
               size="small"
               onClick={() => setISShowAdmin(true)}
-              // fullWidth ={true}
+              sx={{ borderRadius: '8px', ml: 2 }}
+              disableElevation
             >
               View Admins
             </Button>
           )}
         </BackHeader>
-        <div className="flex-1 overflow-y-auto  my-6 no-scrollbar">
+        <div className="flex-1 overflow-auto p-4 md:p-6">
           {loading ? (
-            <div className="w-full h-full flex justify-center">
+            <div className="w-full h-full flex justify-center items-center">
               <Loader />
             </div>
           ) : (
-            <>
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-0 transition-shadow hover:shadow-md h-full flex flex-col">
               {isShowAdmin ? (
                 <AdminsTable />
               ) : (
@@ -144,7 +145,7 @@ const Agents = () => {
                   tableBody={data}
                 />
               )}
-            </>
+            </div>
           )}
         </div>
       </div>
@@ -253,7 +254,7 @@ const AdminsTable = () => {
                           <button
                             // disabled={!isSalesManager}
                             onClick={() => handleEdit(admin)}
-                            className="text-blue-600 hover:text-blue-900 mr-3"
+                            className="text-sky-600 hover:text-sky-900 mr-3"
                           >
                             Edit
                           </button>
@@ -284,9 +285,9 @@ const AdminsTable = () => {
               <MyInput
                 label={"Email"}
                 value={isOpen?.email}
-                // inputProps= {{
-                //   readonly : true
-                // }}
+              // inputProps= {{
+              //   readonly : true
+              // }}
               />
             </Box>
             {/* <Box p={2}>
@@ -391,7 +392,7 @@ const Password = ({ label, onChange, value, isOn, setIsOn }) => {
         placeholder={label}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-gray-900"
+        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 placeholder-gray-500 text-gray-900"
       />
       <button
         type="button"

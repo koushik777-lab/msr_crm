@@ -70,7 +70,7 @@ const MarketingTable = ({
         getScrollParent={() => document.querySelector("#MarketingTable")}
         loader={
           <div key={0} className="flex justify-center p-4">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-sky-500"></div>
           </div>
         }
       >

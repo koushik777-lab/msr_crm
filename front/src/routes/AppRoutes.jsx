@@ -19,6 +19,8 @@ import Sheet from "../pages/client_sheet/Sheet";
 import { API_URI } from "../utils/constants";
 import { getHeaders } from "../utils/helpers";
 import PaymentHistory from "../pages/PaymentHistory/PaymentHistory";
+import MasterSheet from "../pages/masterSheet/MasterSheet";
+import PublicMasterSheetForm from "../pages/masterSheet/PublicMasterSheetForm";
 
 const PrivateRoutes = () => {
   const { user } = useAuth();
@@ -57,6 +59,7 @@ const AppRoutes = () => {
       {/* <Toaster /> */}
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/public/master-sheet/form" element={<PublicMasterSheetForm />} />
         <Route element={<PrivateRoutes />}>
           <Route element={<MainLayout />}>
             <Route
@@ -84,6 +87,7 @@ const AppRoutes = () => {
             />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/renewal" element={<Renewal />} />
+            <Route path="/master-sheet" element={<MasterSheet />} />
             <Route element={<AdminRoutes />}>
               <Route
                 path="/agents"

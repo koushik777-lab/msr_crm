@@ -84,7 +84,7 @@ const PaymentLinkPopup = ({ isOpen, onClose, linkId }) => {
       <div
         key={link.id}
         onClick={() => handleLinkClick(link)}
-        className="bg-white rounded-lg p-4 flex justify-between mb-3 shadow-md border-l-4 border-blue-600 cursor-pointer hover:bg-gray-50"
+        className="bg-white rounded-lg p-4 flex justify-between mb-3 shadow-md border-l-4 border-sky-600 cursor-pointer hover:bg-gray-50"
       >
         <div className="flex-1">
           <p className="font-semibold mb-1">ID: {link.id}</p>
@@ -94,7 +94,7 @@ const PaymentLinkPopup = ({ isOpen, onClose, linkId }) => {
           </p>
         </div>
         <div className="flex flex-col justify-center items-center">
-          <p className="text-blue-600 font-bold text-lg">₹ {link.amount}</p>
+          <p className="text-sky-600 font-bold text-lg">₹ {link.amount}</p>
           <span
             className={`text-xs mt-1 ${link.status === "paid" ? "text-green-500" : "text-yellow-500"}`}
           >
@@ -134,7 +134,7 @@ const PaymentLinkPopup = ({ isOpen, onClose, linkId }) => {
           <div className="flex justify-center mt-4">
             <button
               onClick={onClose}
-              className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
+              className="bg-sky-600 text-white px-6 py-2 rounded-md hover:bg-sky-700 transition"
             >
               Close
             </button>
@@ -155,7 +155,7 @@ const PaymentLinkPopup = ({ isOpen, onClose, linkId }) => {
                 Payment Link Details
               </h2>
 
-              <div className="bg-blue-50 rounded-lg p-4 mb-5">
+              <div className="bg-sky-50 rounded-lg p-4 mb-5">
                 <div className="flex justify-between mb-3">
                   <span className="text-gray-600">ID</span>
                   <span className="font-semibold">{selectedLink.id}</span>
@@ -197,7 +197,7 @@ const PaymentLinkPopup = ({ isOpen, onClose, linkId }) => {
 
                 <div className="flex justify-between mb-1">
                   <span className="text-gray-600">Amount</span>
-                  <span className="font-bold text-blue-600">
+                  <span className="font-bold text-sky-600">
                     ₹ {selectedLink.amount}
                   </span>
                 </div>
@@ -206,7 +206,7 @@ const PaymentLinkPopup = ({ isOpen, onClose, linkId }) => {
               <div className="flex justify-center mt-4">
                 <button
                   onClick={handleCopyToClipboard}
-                  className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition mr-3"
+                  className="bg-sky-600 text-white px-6 py-2 rounded-md hover:bg-sky-700 transition mr-3"
                 >
                   Copy Payment URL
                 </button>

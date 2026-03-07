@@ -141,14 +141,14 @@ const PaymentHistory = () => {
           `${API_URI}/payment-history/${editId}`,
           isBackend
             ? {
-                ...formData,
-                totalBenefit:
-                  Number(formData.gst) +
-                  Number(formData.body) +
-                  Number(formData.tds) +
-                  Number(formData.refAmount) +
-                  Number(formData.govt),
-              }
+              ...formData,
+              totalBenefit:
+                Number(formData.gst) +
+                Number(formData.body) +
+                Number(formData.tds) +
+                Number(formData.refAmount) +
+                Number(formData.govt),
+            }
             : formData,
           getHeaders(),
         );
@@ -282,7 +282,7 @@ const PaymentHistory = () => {
   }, [dateRange]);
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full flex flex-col bg-gray-50 rounded-xl">
       <BackHeader
         title="Payment Received"
         showBtn={true}
@@ -297,30 +297,34 @@ const PaymentHistory = () => {
           setIsShowAll(!isShowAll);
         }}
       >
-        <div className="gap-4 ml-2 inline-flex ">
+        <div className="flex flex-wrap items-center gap-3">
           {!isSalesManager && !isAgent && (
             <Button
-              style={{ backgroundColor: "#4CAF50", textWrap: "nowrap" }}
+              style={{ backgroundColor: "#4CAF50", textWrap: "nowrap", borderRadius: '8px' }}
               onClick={() => {
                 handleExportToExcel();
                 // add functionality to export table in excel and download it here
               }}
               variant="contained"
-              className="text-sm"
+              size="small"
+              disableElevation
             >
-              Excel
+              Export Excel
             </Button>
           )}
           <Button
             variant="contained"
             onClick={() => setIsShowDateFilter(!isShowDateFilter)}
             size="small"
+            sx={{ borderRadius: '8px', backgroundColor: '#0ea5e9' }}
+            disableElevation
           >
-            Date
+            Date Filter
           </Button>
           <Dialog
             open={isShowDateFilter}
             onClose={() => setIsShowDateFilter(false)}
+            PaperProps={{ style: { borderRadius: '16px' } }}
           >
             <DialogContent>
               <DateRangePicker
@@ -330,11 +334,12 @@ const PaymentHistory = () => {
                 }}
               />
             </DialogContent>
-            <DialogActions>
+            <DialogActions sx={{ p: 2, pt: 0 }}>
               <Button
                 onClick={() => {
                   setIsShowDateFilter(false);
                 }}
+                sx={{ borderRadius: '8px' }}
               >
                 Cancel
               </Button>
@@ -347,66 +352,80 @@ const PaymentHistory = () => {
                     toDate: moment(dateRange.endDate).format("YYYY-MM-DD"),
                   }));
                   setIsShowDateFilter(false);
-                  // setIsShowDate(false);
-                  // })
                 }}
                 variant="contained"
+                sx={{ borderRadius: '8px', backgroundColor: '#0ea5e9' }}
+                disableElevation
               >
                 Apply
               </Button>
             </DialogActions>
           </Dialog>
-          <TextField
-            fullWidth
-            size="small"
-            name="companyName"
-            label="Filter By Company Name"
-            onChange={(e) =>
-              setFilter({ ...filter, companyName: e.target.value })
-            }
-            value={filter.companyName}
-          />
-          <TextField
-            fullWidth
-            size="small"
-            name="services"
-            label="Filter By Services"
-            onChange={(e) => setFilter({ ...filter, services: e.target.value })}
-            value={filter.services}
-          />
-          <FormControl size="small" fullWidth>
-            <InputLabel>Client / Consultant</InputLabel>
-            <Select
-              name="isClient"
-              value={filter.isClient || ""}
+
+          <Box sx={{ width: 180 }}>
+            <TextField
+              fullWidth
+              size="small"
+              name="companyName"
+              placeholder="Search Company Name"
               onChange={(e) =>
-                setFilter({ ...filter, isClient: e.target.value })
+                setFilter({ ...filter, companyName: e.target.value })
               }
-              label="Client / Consultant"
-            >
-              {/* <MenuItem value="">All</MenuItem> */}
-              <MenuItem value="true">Client</MenuItem>
-              <MenuItem value="false">Consultant</MenuItem>
-            </Select>
-          </FormControl>
-          {!isAgent && (
+              value={filter.companyName || ""}
+              sx={{ "& .MuiOutlinedInput-root": { borderRadius: "8px", backgroundColor: "white" } }}
+            />
+          </Box>
+          <Box sx={{ width: 170 }}>
+            <TextField
+              fullWidth
+              size="small"
+              name="services"
+              placeholder="Search Services"
+              onChange={(e) => setFilter({ ...filter, services: e.target.value })}
+              value={filter.services || ""}
+              sx={{ "& .MuiOutlinedInput-root": { borderRadius: "8px", backgroundColor: "white" } }}
+            />
+          </Box>
+          <Box sx={{ width: 140 }}>
             <FormControl size="small" fullWidth>
-              <InputLabel>Filter By Agent</InputLabel>
+              <InputLabel id="client-select-label" shrink={false}>{filter.isClient ? '' : 'Type: All'}</InputLabel>
               <Select
+                labelId="client-select-label"
                 name="isClient"
-                value={filter.marketingExecutive || ""}
+                value={filter.isClient || ""}
+                displayEmpty
                 onChange={(e) =>
-                  setFilter({ ...filter, marketingExecutive: e.target.value })
+                  setFilter({ ...filter, isClient: e.target.value })
                 }
-                label="Client / Consultant"
+                sx={{ borderRadius: "8px", backgroundColor: "white" }}
               >
-                {/* <MenuItem value="">All</MenuItem> */}
-                {agentList?.map((agent) => (
-                  <MenuItem value={agent?.name}>{agent?.name}</MenuItem>
-                ))}
-                {/* <MenuItem value="false">Consultant</MenuItem> */}
+                <MenuItem value="">Type: All</MenuItem>
+                <MenuItem value="true">Client</MenuItem>
+                <MenuItem value="false">Consultant</MenuItem>
               </Select>
             </FormControl>
+          </Box>
+          {!isAgent && (
+            <Box sx={{ width: 150 }}>
+              <FormControl size="small" fullWidth>
+                <InputLabel id="agent-select-label" shrink={false}>{filter.marketingExecutive ? '' : 'Agent: All'}</InputLabel>
+                <Select
+                  labelId="agent-select-label"
+                  name="marketingExecutive"
+                  value={filter.marketingExecutive || ""}
+                  displayEmpty
+                  onChange={(e) =>
+                    setFilter({ ...filter, marketingExecutive: e.target.value })
+                  }
+                  sx={{ borderRadius: "8px", backgroundColor: "white" }}
+                >
+                  <MenuItem value="">Agent: All</MenuItem>
+                  {agentList?.map((agent, i) => (
+                    <MenuItem key={i} value={agent?.name}>{agent?.name}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
           )}
           <Button
             onClick={() =>
@@ -417,20 +436,22 @@ const PaymentHistory = () => {
                 marketingExecutive: null,
               })
             }
-            variant="contained"
+            variant="outlined"
+            size="small"
+            sx={{ borderRadius: '8px', height: '40px' }}
           >
-            Clear
+            Clear Filters
           </Button>
         </div>
       </BackHeader>
 
-      <div className="flex-1 p-4 overflow-auto">
+      <div className="flex-1 overflow-auto p-4 md:p-6">
         {loading ? (
           <div className="w-full h-full flex justify-center items-center">
             <Loader />
           </div>
         ) : (
-          <>
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 transition-shadow hover:shadow-md h-full flex flex-col pt-0 pl-0 pr-0">
             {isShowAll ? (
               <PaymentHistoryTable
                 payments={payments}
@@ -438,14 +459,16 @@ const PaymentHistory = () => {
                 fetchPayments={fetchPayments}
               />
             ) : (
-              <PaymentForm
-                formData={formData}
-                handleInputChange={handleInputChange}
-                handleSubmit={handleSubmit}
-                editMode={editMode}
-              />
+              <div className="p-6">
+                <PaymentForm
+                  formData={formData}
+                  handleInputChange={handleInputChange}
+                  handleSubmit={handleSubmit}
+                  editMode={editMode}
+                />
+              </div>
             )}
-          </>
+          </div>
         )}
       </div>
     </div>
@@ -731,7 +754,7 @@ const PaymentHistoryTable = ({ payments, onEdit, fetchPayments }) => {
                   >
                     <div className="flex gap-2">
                       {/* <IconButton size="small">
-                        <FiEye className="text-blue-500" />
+                        <FiEye className="text-sky-500" />
                       </IconButton> */}
                       <IconButton size="small" onClick={() => onEdit(payment)}>
                         <FiEdit className="text-green-500" />
@@ -785,7 +808,7 @@ const PaymentForm = ({
         variant="h5"
         component="h2"
         gutterBottom
-        className="text-center text-blue-600 border-b pb-3 mb-6"
+        className="text-center text-sky-600 border-b pb-3 mb-6"
       >
         {editMode ? "Edit Payment" : "Add New Payment"}
       </Typography>
@@ -800,7 +823,7 @@ const PaymentForm = ({
           value={formData.date}
           onChange={handleInputChange}
           InputLabelProps={{ shrink: true }}
-          // // required
+        // // required
         />
 
         <TextField
@@ -810,7 +833,7 @@ const PaymentForm = ({
           name="invoiceNumber"
           value={formData.invoiceNumber}
           onChange={handleInputChange}
-          // required
+        // required
         />
 
         <TextField
@@ -820,7 +843,7 @@ const PaymentForm = ({
           name="companyName"
           value={formData.companyName}
           onChange={handleInputChange}
-          // required
+        // required
         />
 
         <FormControl fullWidth size="small">
@@ -873,7 +896,7 @@ const PaymentForm = ({
           type="number"
           value={formData.amount}
           onChange={handleInputChange}
-          // required
+        // required
         />
 
         <TextField
@@ -1070,7 +1093,7 @@ const PaymentForm = ({
                     Number(formData.govt))
                 ).toLocaleString("en-IN") || 0
               }
-              // onChange={handleInputChange}
+            // onChange={handleInputChange}
             />
           </>
         )}

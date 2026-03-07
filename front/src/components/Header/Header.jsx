@@ -1,188 +1,71 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import msrLogo from "../../assets/msrSvgLogo.svg";
-import theme from "../../utils/theme";
 import { useAuth } from "../../context/AuthContext";
-import { MdDashboard, MdPayment, MdMarkEmailRead } from "react-icons/md";
-import { BsPeopleFill, BsWhatsapp } from "react-icons/bs";
-import { TbFileDescription } from "react-icons/tb";
-import { FaFileInvoice, FaUserTie, FaHistory } from "react-icons/fa";
-import { HiDocumentText } from "react-icons/hi";
-import { IoNotificationsOutline } from "react-icons/io5";
 import Notifications from "./Notifications";
+import { FiLogOut } from "react-icons/fi";
 
-const Header = () => {
-  const { logout, user } = useAuth();
+const Header = ({ handleLogout }) => {
+  const { user, isBackend, isSalesManager } = useAuth();
   const [imageError, setImageError] = useState(false);
   const location = useLocation();
   const name = user?.name || "User";
   const firstLetter = name.charAt(0);
-  const isActive = (path) => location.pathname === path;
-  const { isBackend, isSalesManager, isAgent } = useAuth();
+
+  // Capitalize role text
+  let roleText = user?.type;
+  if (isBackend) roleText = "Backend";
+  else if (isSalesManager) roleText = "Sales Manager";
 
   return (
-    <header className="flex justify-between items-center px-8 py-1 bg-white shadow-md fixed top-0 left-0 right-0 z-50">
-      <div className="w-12">
-        <img src={msrLogo} alt="MSR Logo" className="w-full h-auto" />
+    <header className="flex justify-between items-center px-6 py-3 bg-white shadow-sm border-b border-gray-100 z-10 w-full">
+      {/* Left side empty or breadcrumbs */}
+      <div className="flex items-center">
+        <h1 className="text-xl font-bold text-gray-800 capitalize">
+          {location.pathname === "/" ? "Dashboard" : location.pathname.substring(1).replace(/([A-Z])/g, ' $1').trim()}
+        </h1>
       </div>
 
-      <nav className="flex gap-3">
-        {/* {!isBackend && ( */}
-        <Link
-          to="/dashboard"
-          className={`font-medium px-2 py-1.5 rounded-md hover:bg-gray-100 transition-colors text-sm flex items-center gap-1.5 ${
-            isActive("/dashboard") ? "underline" : "text-gray-700"
-          }`}
-          style={isActive("/dashboard") ? { color: theme.primaryColor } : {}}
-        >
-          <MdDashboard className="text-lg" />
-          Dashboard
-        </Link>
-        {/* )} */}
-
-        {!isBackend && (
-          <Link
-            to="/leads"
-            className={`font-medium px-2 py-1.5 rounded-md hover:bg-gray-100 transition-colors text-sm flex items-center gap-1.5 ${
-              isActive("/leads") ? "underline" : "text-gray-700"
-            }`}
-            style={isActive("/leads") ? { color: theme.primaryColor } : {}}
-          >
-            <BsPeopleFill className="text-lg" />
-            Leads
-          </Link>
-        )}
-
-        {/* {!isBackend && ( */}
-        <Link
-          to="/quotation"
-          className={`font-medium px-2 py-1.5 rounded-md hover:bg-gray-100 transition-colors text-sm flex items-center gap-1.5 ${
-            isActive("/quotation") ? "underline" : "text-gray-700"
-          }`}
-          style={isActive("/quotation") ? { color: theme.primaryColor } : {}}
-        >
-          <FaFileInvoice className="text-lg" />
-          Quotation
-        </Link>
-        {/* )} */}
-
-        {/* {!isBackend && ( */}
-        <Link
-          to="/clientSheet"
-          className={`font-medium px-2 py-1.5 rounded-md hover:bg-gray-100 transition-colors text-sm flex items-center gap-1.5 ${
-            isActive("/clientSheet") ? "underline" : "text-gray-700"
-          }`}
-          style={isActive("/clientSheet") ? { color: theme.primaryColor } : {}}
-        >
-          <HiDocumentText className="text-lg" />
-          Client Sheet
-        </Link>
-        {/* )} */}
-
-        {/* {!isBackend && ( */}
-        <Link
-          to="/payment"
-          className={`font-medium px-2 py-1.5 rounded-md hover:bg-gray-100 transition-colors text-sm flex items-center gap-1.5 ${
-            isActive("/payment") ? "underline" : "text-gray-700"
-          }`}
-          style={isActive("/payment") ? { color: theme.primaryColor } : {}}
-        >
-          <MdPayment className="text-lg" />
-          Payment
-        </Link>
-        {/* )} */}
-        {/* {!isBackend && ( */}
-        <Link
-          to="/paymentHistory"
-          className={`font-medium px-2 py-1.5 rounded-md hover:bg-gray-100 transition-colors text-sm flex items-center gap-1.5 ${
-            isActive("/paymentHistory") ? "underline" : "text-gray-700"
-          }`}
-          style={
-            isActive("/paymentHistory") ? { color: theme.primaryColor } : {}
-          }
-        >
-          <MdPayment className="text-lg" />
-          Payment Received
-        </Link>
-        {/* )} */}
-
-        {!isBackend && !isAgent && (
-          <Link
-            to="/agents"
-            className={`font-medium px-2 py-1.5 rounded-md hover:bg-gray-100 transition-colors text-sm flex items-center gap-1.5 ${
-              isActive("/agents") ? "underline" : "text-gray-700"
-            }`}
-            style={isActive("/agents") ? { color: theme.primaryColor } : {}}
-          >
-            <FaUserTie className="text-lg" />
-            Agents
-          </Link>
-        )}
-
-        {!isBackend && (
-          <Link
-            to="/marketing"
-            className={`font-medium px-2 py-1.5 rounded-md hover:bg-gray-100 transition-colors text-sm flex items-center gap-1.5 ${
-              isActive("/marketing") ? "underline" : "text-gray-700"
-            }`}
-            style={isActive("/marketing") ? { color: theme.primaryColor } : {}}
-          >
-            <MdMarkEmailRead className="text-lg" />
-            Marketing
-          </Link>
-        )}
-
-        <Link
-          to="/renewal"
-          className={`font-medium px-2 py-1.5 rounded-md hover:bg-gray-100 transition-colors text-sm flex items-center gap-1.5 ${
-            isActive("/renewal") ? "underline" : "text-gray-700"
-          }`}
-          style={isActive("/renewal") ? { color: theme.primaryColor } : {}}
-        >
-          <FaHistory className="text-lg" />
-          Renewal & Surv
-        </Link>
-
-        {!isBackend && (
-          <Link
-            to="/whatsapp"
-            className={`font-medium px-2 py-1.5 rounded-md hover:bg-gray-100 transition-colors text-sm flex items-center gap-1.5 ${
-              isActive("/whatsapp") ? "underline" : "text-gray-700"
-            }`}
-            style={isActive("/whatsapp") ? { color: theme.primaryColor } : {}}
-          >
-            <BsWhatsapp className="text-lg" />
-            Whatsapp
-          </Link>
-        )}
-      </nav>
-
-      <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-          {!imageError ? (
-            <img
-              src="/userImg.png"
-              alt={firstLetter}
-              className="w-full h-full rounded-full"
-              onError={() => setImageError(true)}
-            />
-          ) : (
-            <span className="text-xl font-semibold text-gray-600">
-              {firstLetter}
-            </span>
-          )}
-        </div>
-        <div className="flex flex-col">
-          <span className="text-gray-700 font-medium text-lg">{name}</span>
-          <span className="text-gray-500 text-sm capitalize">
-            {isBackend
-              ? "Backend"
-              : isSalesManager
-                ? "Sales Manager"
-                : user?.type}
-          </span>
-        </div>
+      {/* Right side items */}
+      <div className="flex items-center gap-6">
         <Notifications />
+
+        {/* Divider */}
+        <div className="h-8 w-px bg-gray-200"></div>
+
+        {/* User Profile */}
+        <div className="flex items-center gap-3">
+          <div className="flex flex-col text-right">
+            <span className="text-gray-900 font-semibold text-sm">{name}</span>
+            <span className="text-gray-500 text-xs font-medium capitalize">
+              {roleText}
+            </span>
+          </div>
+
+          <div className="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden">
+            {!imageError ? (
+              <img
+                src="/userImg.png"
+                alt={firstLetter}
+                className="w-full h-full object-cover"
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <span className="text-lg font-bold text-sky-600">
+                {firstLetter}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Modern Logout Button */}
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+          title="Logout"
+        >
+          <FiLogOut className="text-lg" />
+          <span>Logout</span>
+        </button>
       </div>
     </header>
   );

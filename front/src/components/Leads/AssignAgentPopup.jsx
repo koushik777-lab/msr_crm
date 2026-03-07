@@ -52,7 +52,7 @@ export default function AssignAgentPopup({ onClose }) {
         </table>
         <div className="text-center">
           <button
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg"
+            className="bg-sky-600 text-white px-6 py-2 rounded-lg"
             onClick={() => console.log("Assign agent")}
           >
             Assign

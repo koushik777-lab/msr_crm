@@ -98,7 +98,7 @@ export default function Notifications() {
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b">
             <div className="flex items-center">
-              <FiBell className="text-blue-600 mr-2" />
+              <FiBell className="text-sky-600 mr-2" />
               <h2 className="font-semibold">Notifications</h2>
             </div>
             <div className="flex items-center">
@@ -119,7 +119,7 @@ export default function Notifications() {
               notificationsData.map((notification, index) => (
                 <div
                   key={index}
-                  className="p-3 border-b hover:bg-gray-50 cursor-pointer bg-blue-50 my-2"
+                  className="p-3 border-b hover:bg-gray-50 cursor-pointer bg-sky-50 my-2"
                 >
                   <div className="flex justify-between items-start">
                     <h3 className="font-medium text-gray-800">

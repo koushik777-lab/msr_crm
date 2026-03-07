@@ -2,9 +2,9 @@ import React from "react";
 
 export default function StatsCard({ title, value }) {
   return (
-    <div className="flex flex-col bg-gradient-to-br from-white to-blue-50 p-4 sm:p-6 rounded-xl mb-4 shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 border-l-4 border-[#1364FF] w-full sm:w-64 max-w-full h-auto min-h-[10rem]">
+    <div className="flex flex-col bg-gradient-to-br from-white to-sky-50 p-4 sm:p-6 rounded-xl mb-4 shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 border-l-4 border-[#0ea5e9] w-full sm:w-64 max-w-full h-auto min-h-[10rem]">
       <div className="mb-2">
-        <h3 className="text-md sm:text-lg font-semibold text-[#1364FF] line-clamp-2">
+        <h3 className="text-md sm:text-lg font-semibold text-[#0ea5e9] line-clamp-2">
           {title}
         </h3>
       </div>
@@ -13,7 +13,7 @@ export default function StatsCard({ title, value }) {
           {value}
         </p>
       </div>
-      <div className="w-1/4 h-1 bg-[#1364FF] rounded-full opacity-70 mt-2"></div>
+      <div className="w-1/4 h-1 bg-[#0ea5e9] rounded-full opacity-70 mt-2"></div>
     </div>
   );
 }

@@ -191,7 +191,7 @@ function ShopBarcodeForm({
             <div className="space-y-4">
               <h2
                 className="text-lg font-semibold border-b pb-2"
-                style={{ color: "#1364FF" }}
+                style={{ color: "#0ea5e9" }}
               >
                 Basic Information
               </h2>
@@ -241,7 +241,7 @@ function ShopBarcodeForm({
             <div className="space-y-4">
               <h2
                 className="text-lg font-semibold border-b pb-2"
-                style={{ color: "#1364FF" }}
+                style={{ color: "#0ea5e9" }}
               >
                 Contact Information
               </h2>
@@ -283,7 +283,7 @@ function ShopBarcodeForm({
             <div className="space-y-4">
               <h2
                 className="text-lg font-semibold border-b pb-2"
-                style={{ color: "#1364FF" }}
+                style={{ color: "#0ea5e9" }}
               >
                 Currency type
               </h2>
@@ -308,7 +308,7 @@ function ShopBarcodeForm({
             <div className="space-y-4">
               <h2
                 className="text-lg font-semibold border-b pb-2"
-                style={{ color: "#1364FF" }}
+                style={{ color: "#0ea5e9" }}
               >
                 Price Description
               </h2>
@@ -362,7 +362,7 @@ function ShopBarcodeForm({
                     ))}
                     <button
                       type="button"
-                      className="px-4 py-2 bg-blue-500 text-white rounded"
+                      className="px-4 py-2 bg-sky-500 text-white rounded"
                       onClick={() =>
                         push({
                           sno: form.values.priceDescription.length + 1,
@@ -382,7 +382,7 @@ function ShopBarcodeForm({
             <div className="space-y-4">
               <h2
                 className="text-lg font-semibold border-b pb-2"
-                style={{ color: "#1364FF" }}
+                style={{ color: "#0ea5e9" }}
               >
                 Discount
               </h2>
@@ -399,8 +399,8 @@ function ShopBarcodeForm({
                 disabled={isSubmitting}
                 className="w-full py-3 text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{
-                  backgroundColor: "#1364FF",
-                  focusRingColor: "#1364FF",
+                  backgroundColor: "#0ea5e9",
+                  focusRingColor: "#0ea5e9",
                 }}
               >
                 {isSubmitting ? "Generating..." : "Generate Quotation"}
