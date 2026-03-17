@@ -9,6 +9,30 @@ const PaymentLinkModel = require("../models/PaymentLink");
 const OnlineTime = require("../models/OnlineTime");
 dotenv.config();
 
+async function fetchMCALeads(date = getYesterdayDate()) {
+  try {
+    const response = await axios.get(
+      "https://dashboard-api.fact-flow.in/api/v1/lead/mca-leads",
+      {
+        params: {
+          page: 1,
+          limit: 1000,
+          startDate: date,
+        },
+        headers: {
+          apikey: process.env.FACT_FLOW_API_KEY,
+          secretkey: process.env.FACT_FLOW_SECRET_KEY,
+        },
+      },
+    );
+
+    return response.data?.data?.leads || [];
+  } catch (error) {
+    console.error("Error fetching MCA leads:", error.message);
+    return [];
+  }
+}
+
 function getYesterdayDate(asDateObject = false) {
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
@@ -133,40 +157,70 @@ async function syncLeads() {
     const directors = await fetchNewCompaniesDirectors();
     const companies = await fetchNewCompaniesInfo();
 
-    const mergedData = directors.map((director) => {
-      const company =
-        companies.find((company) => company.CIN === director.CIN) || {};
+    const mergedData = directors
+      .filter((d) => d.Mobile && d.Mobile.length >= 10 && !d.Mobile.includes("*"))
+      .map((director) => {
+        const company =
+          companies.find((company) => company.CIN === director.CIN) || {};
 
-      return {
-        name: director.DirectorName,
-        company: company.Company,
-        number: director.Mobile.slice(-10),
-        email: director.Email,
-        address: company.State,
-        source: "Company",
-        receivedDate: getYesterdayDate(true),
-      };
-    });
+        return {
+          name: director.DirectorName,
+          company: company.Company,
+          number: director.Mobile.slice(-10),
+          email: director.Email,
+          address: company.State,
+          source: "Company",
+          receivedDate: getYesterdayDate(true),
+        };
+      });
+
     const gstLeads = await fetchGSTLeads();
-    const gstMappedData = gstLeads.map((lead) => {
-      //lead.GSTIN
-      return {
-        name: lead.LegalName || "N/A",
-        company: lead.TradeName || "N/A",
-        number: lead.Mobile.slice(-10),
-        email: lead.Email,
-        address: gstinStateMapping[lead.GSTIN.substr(0, 2)],
-        source: "GST",
-        receivedDate: getYesterdayDate(true),
-      };
-    });
+    const gstMappedData = gstLeads
+      .filter((l) => l.Mobile && l.Mobile.length >= 10 && !l.Mobile.includes("*"))
+      .map((lead) => {
+        return {
+          name: lead.LegalName || "N/A",
+          company: lead.TradeName || "N/A",
+          number: lead.Mobile.slice(-10),
+          email: lead.Email,
+          address: gstinStateMapping[lead.GSTIN.substr(0, 2)],
+          source: "GST",
+          receivedDate: getYesterdayDate(true),
+        };
+      });
 
-    // console.log("MERGE DATA", mergedData);
-    // console.log("GST DATA" , gstMappedData);
-    // return ;
-    await Leads.insertMany(mergedData);
-    await Leads.insertMany(gstMappedData);
-    return mergedData;
+    const mcaLeads = await fetchMCALeads();
+    const mcaMappedData = mcaLeads
+      .filter((l) => l.mobile && l.mobile.length >= 10 && !l.mobile.includes("*"))
+      .map((lead) => {
+        return {
+          name: lead.directorName || "N/A",
+          company: lead.company || "N/A",
+          number: lead.mobile.slice(-10),
+          email: lead.email,
+          address: lead.state,
+          source: "MCA",
+          receivedDate: lead.dateOfRegistration
+            ? new Date(lead.dateOfRegistration)
+            : getYesterdayDate(true),
+        };
+      });
+
+    const allLeadsData = [...mergedData, ...gstMappedData, ...mcaMappedData];
+
+    if (allLeadsData.length > 0) {
+      const bulkOps = allLeadsData.map((lead) => ({
+        updateOne: {
+          filter: { number: lead.number, company: lead.company },
+          update: { $setOnInsert: lead },
+          upsert: true,
+        },
+      }));
+
+      await Leads.bulkWrite(bulkOps);
+    }
+
+    return allLeadsData;
   } catch (error) {
     console.error("Error syncing leads:", error);
     return [];

@@ -9,6 +9,7 @@ const {
   updateLeadStatus,
   multiAssignLeads,
   uploadExcelLeads,
+  manualSyncLeads,
 } = require("../controllers/leads");
 const { AdminAuthMiddleware } = require("../utils/middlewares");
 const router = express.Router();
@@ -27,5 +28,6 @@ router.post(
   uploadSingle("file"),
   uploadExcelLeads,
 );
+router.get("/sync-leads", AdminAuthMiddleware, manualSyncLeads);
 
 module.exports = router;

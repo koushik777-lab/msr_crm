@@ -536,6 +536,15 @@ const uploadExcelLeads = async (req, res) => {
   }
 };
 
+const manualSyncLeads = async (req, res) => {
+  try {
+    const leads = await syncLeads();
+    res.status(200).json({ message: "Leads synced successfully !!!", leads });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getAllLeads,
   postLeads,
@@ -545,4 +554,5 @@ module.exports = {
   updateLeadStatus,
   multiAssignLeads,
   uploadExcelLeads,
+  manualSyncLeads,
 };
