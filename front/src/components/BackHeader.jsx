@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 const BackHeader = ({
   title = "dashboard",
@@ -8,17 +7,9 @@ const BackHeader = ({
   onClick,
   children,
 }) => {
-  const navigate = useNavigate();
-
   return (
     <div className="border rounded-2xl border-gray-200 p-3 flex flex-wrap items-center justify-between gap-3 shadow-sm z-40 bg-white mx-4">
       <div className="flex items-center gap-3 shrink-0">
-        <span
-          className="text-xl cursor-pointer w-8 h-8 flex items-center justify-center bg-gray-50 rounded-full text-gray-600 hover:bg-sky-50 hover:text-sky-600 transition-colors shrink-0"
-          onClick={() => navigate(-1)}
-        >
-          ←
-        </span>
         <h2 className="text-lg md:text-xl font-bold text-sky-600 whitespace-nowrap">
           {title.toUpperCase()}
         </h2>
