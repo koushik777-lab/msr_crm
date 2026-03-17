@@ -105,7 +105,7 @@ const Dashboard = ({ setLoading }) => {
       console.log("QUOTATIONS", quotations);
       setQuotations(quotations);
       setUniversalLoading(false);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -125,84 +125,82 @@ const Dashboard = ({ setLoading }) => {
   }, []);
   // console.log(dashboardData);
   return (
-    <div className="w-full  flex flex-col">
-      {/* <BackHeader title="dashboard" addbuttonText={"Export"} onClick={()=> {}}  showBtn={true}/> */}
-      <div className="flex-1 overflow-y-auto  no-scrollbar">
-        {/* <div className="flex items-center justify-end px-4 py-3 my-3">
-          <h3 className="text-black text-center flex-1 text-5xl">
-            Monthly Leads Overview
-          </h3>
-        </div> */}
-        <div className="px-1 flex flex-col gap-10">
-          {/* <DashboardTable
-            tableHeaders={DAILY_LEADS_OVERVIEW_HEADERS}
-            tableBody={DAILY_LEADS_OVERVIEW_BODY}
-          /> */}
-          {universalLoading && <Loader className={"mx-auto "} />}
+    <div className="w-full h-full flex flex-col bg-gray-50 rounded-xl">
+      <div className="flex-1 overflow-y-auto no-scrollbar pb-10">
+        <div className="px-6 py-6 flex flex-col gap-8">
+          {universalLoading && <Loader className={"mx-auto mt-20"} />}
 
           {!universalLoading && (
             <React.Fragment>
-              <div className="flex gap-4 items-center">
-                <TodaysCallBarChart
-                  AgentCalls={todaysCall || []}
-                  loading={loadings.agentCalls}
-                />
-                <OuotationTable
-                  dashboardData={dashboardData?.agentPayments || []}
-                  quotations={quotations}
-                />
+              <div className="flex flex-col lg:flex-row gap-6 items-stretch">
+                <div className="flex-1 bg-white p-6 rounded-2xl shadow-sm border border-gray-100 transition-shadow hover:shadow-md">
+                  <h2 className="text-lg font-bold text-gray-800 mb-4 capitalize">Today's Calls</h2>
+                  <TodaysCallBarChart
+                    AgentCalls={todaysCall || []}
+                    loading={loadings.agentCalls}
+                  />
+                </div>
+                <div className="flex-1 bg-white p-6 rounded-2xl shadow-sm border border-gray-100 transition-shadow hover:shadow-md">
+                  <h2 className="text-lg font-bold text-gray-800 mb-4 capitalize">Quotations Overview</h2>
+                  <OuotationTable
+                    dashboardData={dashboardData?.agentPayments || []}
+                    quotations={quotations}
+                  />
+                </div>
               </div>
 
-              {/* {!isAgent && ( */}
               <>
-                <div className="flex justify-between gap-4 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch">
                   {!isAgent && (
-                    <div className="basis-[100px]">
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 transition-shadow hover:shadow-md flex flex-col justify-center">
+                      <h2 className="text-lg font-bold text-gray-800 mb-4 capitalize">Payment Links</h2>
                       <PaymentLinkChart
                         dashboardData={dashboardData?.agentPayments || []}
                       />
                     </div>
                   )}
-                  <div>
+                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 transition-shadow hover:shadow-md flex flex-col justify-center">
+                    <h2 className="text-lg font-bold text-gray-800 mb-4 capitalize">Payment Totals</h2>
                     <PaymentHistoryTotal />
                   </div>
                   {!isAgent && (
-                    <div className="grow">
-                      <LeadsBarChart
-                      // leads={allLeads}
-                      // loading={loadings.allLeads}
-                      />
+                    <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-100 transition-shadow hover:shadow-md">
+                      <h2 className="text-lg font-bold text-gray-800 mb-4 capitalize">Leads Overview</h2>
+                      <LeadsBarChart />
                     </div>
                   )}
                 </div>
 
-                <div className="grow border-2 shadow py-3">
-                  <PaymentHistorychart
-                  //  dashboardData={dashboardData?.agentPayments || []}
-                  />
+                <div className="w-full bg-white p-6 rounded-2xl shadow-sm border border-gray-100 transition-shadow hover:shadow-md">
+                  <h2 className="text-lg font-bold text-gray-800 mb-4 capitalize">Payment History</h2>
+                  <PaymentHistorychart />
                 </div>
+
                 {!isAgent && (
-                  <div className="flex  gap-4 items-center">
-                    <div className="grow shadow py-4">
+                  <div className="flex flex-col lg:flex-row gap-6 items-stretch">
+                    <div className="flex-[2] bg-white p-6 rounded-2xl shadow-sm border border-gray-100 transition-shadow hover:shadow-md">
+                      <h2 className="text-lg font-bold text-gray-800 mb-4 capitalize">Dashboard Analytics</h2>
                       <DashboardBarChart setLoading={setLoading} />
                     </div>
-                    <div className="basis-1/3">
-                      <LeadsPieChart
-                      // leads={allLeads}
-                      // loading={loadings.allLeads}
-                      />
+                    <div className="flex-1 bg-white p-6 rounded-2xl shadow-sm border border-gray-100 transition-shadow hover:shadow-md flex flex-col justify-center items-center">
+                      <h2 className="text-lg font-bold text-gray-800 mb-4 capitalize w-full text-left">Leads Distribution</h2>
+                      <LeadsPieChart />
                     </div>
                   </div>
                 )}
-                {!isAgent && AGENTCHART}
+
+                {!isAgent && (
+                  <div className="w-full bg-white p-6 rounded-2xl shadow-sm border border-gray-100 transition-shadow hover:shadow-md">
+                    <h2 className="text-lg font-bold text-gray-800 mb-4 capitalize">Agent Performance</h2>
+                    {AGENTCHART}
+                  </div>
+                )}
               </>
-              {/* // )} */}
 
-              <DashboardIdleCallTable dashboardData={dashboardData} />
-              {/* </div> */}
-              {/* <div clas> */}
-
-              {/* </div> */}
+              <div className="w-full bg-white p-6 rounded-2xl shadow-sm border border-gray-100 transition-shadow hover:shadow-md">
+                <h2 className="text-lg font-bold text-gray-800 mb-4 capitalize">Idle Calls</h2>
+                <DashboardIdleCallTable dashboardData={dashboardData} />
+              </div>
             </React.Fragment>
           )}
         </div>

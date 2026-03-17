@@ -108,7 +108,7 @@ export default function EmailMarketingPopup({
         <div className="mb-6">
           <Paper elevation={2} className="p-4 rounded-lg mb-6">
             <div className="text-black text-lg font-semibold mb-4">
-              <span className="border-b-2 border-blue-500 pb-1">
+              <span className="border-b-2 border-sky-500 pb-1">
                 Filter By Lead Source
               </span>
             </div>
@@ -119,7 +119,7 @@ export default function EmailMarketingPopup({
                   onClick={() => handleSelectedSource(source)}
                   className={`px-4 py-2 rounded-full text-sm font-medium cursor-pointer transition-all duration-200 ${
                     selectedSource === source
-                      ? "bg-blue-500 text-white shadow-md transform scale-105"
+                      ? "bg-sky-500 text-white shadow-md transform scale-105"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                   }`}
                 >
@@ -155,7 +155,7 @@ export default function EmailMarketingPopup({
 
         {loading && page === 1 ? (
           <div className="flex justify-center p-8">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sky-500"></div>
           </div>
         ) : leads.length === 0 ? (
           <div className="text-center p-6 bg-gray-50 rounded-lg">
@@ -183,7 +183,7 @@ export default function EmailMarketingPopup({
 
         <div className="mt-6 flex justify-center gap-4">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="button"
             onClick={() => {
               onClose(selectedLeads); // Pass selected leads back to parent
@@ -193,7 +193,7 @@ export default function EmailMarketingPopup({
           </button>
           {!isOnlyClose && (
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
               onClick={handleSend}
               disabled={selectedLeads.length === 0}

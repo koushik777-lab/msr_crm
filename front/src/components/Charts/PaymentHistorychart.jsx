@@ -129,7 +129,7 @@ const PaymentHistorychart = () => {
                     onChange={(e) =>
                       setFilter({ ...filter, year: e.target.value })
                     }
-                    className="border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                    className="border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white"
                   >
                     <option value="">All Years</option>
                     {(() => {
@@ -160,7 +160,7 @@ const PaymentHistorychart = () => {
                     onChange={(e) =>
                       setFilter({ ...filter, month: e.target.value })
                     }
-                    className="border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                    className="border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white"
                   >
                     <option value="">All Months</option>
                     <option value="1">January</option>
@@ -195,7 +195,7 @@ const PaymentHistorychart = () => {
                   <span className="text-sm text-gray-600">Active filters:</span>
                   <div className="flex flex-wrap gap-2">
                     {filter.year && (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-sky-100 text-sky-800">
                         Year: {filter.year}
                       </span>
                     )}
@@ -216,7 +216,7 @@ const PaymentHistorychart = () => {
                 {loading ? (
                   <span className="flex items-center">
                     <svg
-                      className="animate-spin -ml-1 mr-2 h-4 w-4 text-blue-500"
+                      className="animate-spin -ml-1 mr-2 h-4 w-4 text-sky-500"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -283,7 +283,7 @@ const PaymentHistorychart = () => {
                     >
                       <div className="flex flex-col items-center justify-center">
                         <svg
-                          className="animate-spin h-10 w-10 text-blue-500 mb-3"
+                          className="animate-spin h-10 w-10 text-sky-500 mb-3"
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"

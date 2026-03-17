@@ -107,10 +107,10 @@ export default function Renewal() {
         prev.map((item) =>
           selectedRenewals.includes(item._id)
             ? {
-                ...item,
-                agent: agentId,
-                status: "Not Contacted",
-              }
+              ...item,
+              agent: agentId,
+              status: "Not Contacted",
+            }
             : item,
         ),
       );
@@ -444,10 +444,10 @@ export default function Renewal() {
         prev.map((item) =>
           item._id === renewalId
             ? {
-                ...item,
-                status: newStatus,
-                ...(newStatus == "Unassigned" && { agent: null }),
-              }
+              ...item,
+              status: newStatus,
+              ...(newStatus == "Unassigned" && { agent: null }),
+            }
             : item,
         ),
       );
@@ -491,10 +491,10 @@ export default function Renewal() {
         prev.map((item) =>
           item._id === renewalId
             ? {
-                ...item,
-                reminderDate: date,
-                status: "Reminder Set",
-              }
+              ...item,
+              reminderDate: date,
+              status: "Reminder Set",
+            }
             : item,
         ),
       );
@@ -521,12 +521,12 @@ export default function Renewal() {
         prev.map((item) =>
           item._id === selectedRenewal?._id
             ? {
-                ...item,
-                agent: agentId,
-                ...(selectedRenewal?.status == "Unassigned" && {
-                  status: "Not Contacted",
-                }),
-              }
+              ...item,
+              agent: agentId,
+              ...(selectedRenewal?.status == "Unassigned" && {
+                status: "Not Contacted",
+              }),
+            }
             : item,
         ),
       );
@@ -571,120 +571,123 @@ export default function Renewal() {
   }
   console.log(filter);
   return (
-    <div>
+    <div className="w-full h-full flex flex-col bg-gray-50 rounded-xl">
       <BackHeader
         onClick={handleUploadClick}
         title="Renewal & Survey"
         showBtn={!isAgent && !isSalesManager}
         addbuttonText={"Upload Excel"}
       >
-        <div className="flex items-center gap-2 mr-4">
+        <div className="flex flex-wrap items-center gap-3">
           {/* Add Renewal Button */}
           {!isAgent && !isSalesManager && (
             <Button
               variant="contained"
               color="primary"
               onClick={() => setIsAddRenewalPopupOpen(true)}
-              sx={{ mr: 2 }}
+              sx={{ mr: { xs: 0, sm: 2 }, mb: { xs: 1, sm: 0 }, borderRadius: '8px' }}
+              disableElevation
             >
               Add Renewal
             </Button>
           )}
 
-          {[
-            // { label: "Issue Date", type: "issue_date" },
-            { label: "First Survey", type: "first_survey" },
-            { label: "Second Survey", type: "second_survey" },
-            { label: "Expiry Date", type: "expiry_date" },
-          ].map((item, i) => (
-            <Button
-              key={i}
-              variant={filter.type === item.type ? "contained" : "outlined"}
-              size="small"
-              onClick={() => {
-                setFilterLoading(true);
-                if (filter.type === item.type) {
-                  setFilter({ type: null, label: null });
-                } else {
-                  setFilter({ type: item.type, label: item.label });
-                  setExcelData([]);
+          <div className="flex flex-wrap items-center gap-2">
+            {[
+              // { label: "Issue Date", type: "issue_date" },
+              { label: "First Survey", type: "first_survey" },
+              { label: "Second Survey", type: "second_survey" },
+              { label: "Expiry Date", type: "expiry_date" },
+            ].map((item, i) => (
+              <Button
+                key={i}
+                variant={filter.type === item.type ? "contained" : "outlined"}
+                size="small"
+                onClick={() => {
+                  setFilterLoading(true);
+                  if (filter.type === item.type) {
+                    setFilter({ type: null, label: null });
+                  } else {
+                    setFilter({ type: item.type, label: item.label });
+                    setExcelData([]);
+                  }
+                }}
+                disabled={filterLoading}
+                startIcon={
+                  filterLoading && filter.type === item.type ? (
+                    <CircularProgress size={14} color="inherit" />
+                  ) : null
                 }
-              }}
-              disabled={filterLoading}
-              startIcon={
-                filterLoading && filter.type === item.type ? (
-                  <CircularProgress size={14} color="inherit" />
-                ) : null
-              }
-              sx={{
-                minWidth: "auto",
-                backgroundColor:
-                  filter.type === item.type ? "#4CAF50" : "transparent",
-                color: filter.type === item.type ? "white" : "primary.main",
-                fontWeight: filter.type === item.type ? "bold" : "normal",
-                border:
-                  filter.type === item.type
-                    ? "1px solid #4CAF50"
-                    : "1px solid rgba(25, 118, 210, 0.5)",
-                "&:hover": {
+                sx={{
+                  minWidth: "auto",
                   backgroundColor:
-                    filter.type === item.type
-                      ? "#3e8e41"
-                      : "rgba(25, 118, 210, 0.04)",
+                    filter.type === item.type ? "#4CAF50" : "transparent",
+                  color: filter.type === item.type ? "white" : "primary.main",
+                  fontWeight: filter.type === item.type ? "bold" : "normal",
                   border:
                     filter.type === item.type
-                      ? "1px solid #3e8e41"
+                      ? "1px solid #4CAF50"
                       : "1px solid rgba(25, 118, 210, 0.5)",
-                },
-                transition: "all 0.3s ease",
-                boxShadow:
-                  filter.type === item.type
-                    ? "0 2px 4px rgba(0,0,0,0.2)"
-                    : "none",
-                padding: "4px 10px",
-                marginRight: "4px",
-                borderRadius: "4px",
-              }}
-            >
-              {item.label}
-            </Button>
-          ))}
-          {filter.type && (
-            <Button
-              variant="outlined"
-              color="error"
-              size="small"
-              onClick={() => {
-                setFilterLoading(true);
-                setFilter({ type: null, label: null });
-                setExcelData([]);
-              }}
-              disabled={filterLoading}
-              startIcon={
-                filterLoading && filter.type === null ? (
-                  <CircularProgress size={14} color="inherit" />
-                ) : null
-              }
-              sx={{
-                minWidth: "auto",
-                padding: "4px 10px",
-                marginLeft: "8px",
-                border: "1px solid #f44336",
-                "&:hover": {
-                  backgroundColor: "rgba(244, 67, 54, 0.04)",
-                  border: "1px solid #d32f2f",
-                },
-              }}
-            >
-              Clear Filter
-            </Button>
-          )}
+                  "&:hover": {
+                    backgroundColor:
+                      filter.type === item.type
+                        ? "#3e8e41"
+                        : "rgba(25, 118, 210, 0.04)",
+                    border:
+                      filter.type === item.type
+                        ? "1px solid #3e8e41"
+                        : "1px solid rgba(25, 118, 210, 0.5)",
+                  },
+                  transition: "all 0.3s ease",
+                  boxShadow:
+                    filter.type === item.type
+                      ? "0 2px 4px rgba(0,0,0,0.2)"
+                      : "none",
+                  padding: "4px 10px",
+                  marginRight: "4px",
+                  borderRadius: "4px",
+                }}
+              >
+                {item.label}
+              </Button>
+            ))}
+            {filter.type && (
+              <Button
+                variant="outlined"
+                color="error"
+                size="small"
+                onClick={() => {
+                  setFilterLoading(true);
+                  setFilter({ type: null, label: null });
+                  setExcelData([]);
+                }}
+                disabled={filterLoading}
+                startIcon={
+                  filterLoading && filter.type === null ? (
+                    <CircularProgress size={14} color="inherit" />
+                  ) : null
+                }
+                sx={{
+                  minWidth: "auto",
+                  padding: "4px 10px",
+                  marginLeft: "8px",
+                  border: "1px solid #f44336",
+                  "&:hover": {
+                    backgroundColor: "rgba(244, 67, 54, 0.04)",
+                    border: "1px solid #d32f2f",
+                  },
+                }}
+              >
+                Clear Filter
+              </Button>
+            )}
+          </div>
           <div>
             <Autocomplete
               id="combo-box-demo"
               options={agentList}
               getOptionLabel={(option) => option.name}
-              style={{ minWidth: 200 }}
+              style={{ width: 140 }}
               onChange={(e, val) => {
                 val && handleMultiAgentAssign(val._id);
               }}
@@ -703,7 +706,8 @@ export default function Renewal() {
             <TextField
               label="Search"
               size="small"
-              placeholder="Search By Company, Phone number"
+              placeholder="Search By Company/Phone"
+              sx={{ width: 170 }}
               onChange={DEBOUNCE((e) => setSearch(e.target.value), 500)}
             />
             <Button
@@ -878,31 +882,33 @@ export default function Renewal() {
         </DialogActions>
       </Dialog>
 
-      <Box sx={{ padding: "20px" }}>
+      <Box sx={{ padding: { xs: "12px", md: "24px" } }}>
         {/* Active Filter Indicator */}
         {filter.type && (
           <Box
             sx={{
               display: "flex",
               alignItems: "center",
-              mb: 2,
-              p: 1,
-              borderRadius: 1,
-              bgcolor: "rgba(76, 175, 80, 0.1)",
-              border: "1px solid rgba(76, 175, 80, 0.3)",
+              mb: 3,
+              p: 1.5,
+              borderRadius: 2,
+              bgcolor: "#F0FDF4",
+              border: "1px solid #BBF7D0",
               width: "fit-content",
+              boxShadow: "0 1px 2px rgba(0,0,0,0.05)"
             }}
           >
             <Typography
               variant="body2"
               sx={{
-                color: "#4CAF50",
-                fontWeight: "medium",
+                color: "#166534",
+                fontWeight: 600,
                 display: "flex",
                 alignItems: "center",
+                fontSize: "0.875rem"
               }}
             >
-              <Box component="span" sx={{ mr: 1 }}>
+              <Box component="span" sx={{ mr: 1, fontSize: "1.1rem" }}>
                 🔍
               </Box>
               Filtering by: {filter.label}
@@ -920,18 +926,17 @@ export default function Renewal() {
               height: "calc(100vh - 200px)",
             }}
           >
-            <CircularProgress size={40} />
-            <Typography variant="body1" sx={{ mt: 2 }}>
+            <CircularProgress size={40} sx={{ color: '#0ea5e9' }} />
+            <Typography variant="body1" sx={{ mt: 2, color: 'text.secondary', fontWeight: 500 }}>
               Loading data...
             </Typography>
           </Box>
         ) : excelData.length > 0 ? (
-          <Box>
+          <Box className="bg-white rounded-2xl shadow-sm border border-gray-100 transition-shadow hover:shadow-md overflow-hidden">
             <Box sx={{ width: "100%", overflowX: "auto" }}>
               <TableContainer
-                component={Paper}
                 sx={{
-                  maxHeight: 600,
+                  maxHeight: 'calc(100vh - 280px)',
                   overflowX: "auto",
                   width: "max-content",
                   minWidth: "100%",
@@ -1064,7 +1069,7 @@ export default function Renewal() {
                               {" "}
                               {row?.agent
                                 ? agentList.find((v) => v?._id == row?.agent)
-                                    ?.name
+                                  ?.name
                                 : ""}
                             </span>
                             {user?.type === "admin" && (
@@ -1083,9 +1088,8 @@ export default function Renewal() {
                             onChange={(e) =>
                               handleStatusChange(row._id, e.target.value)
                             }
-                            className={`${
-                              statusColorMap[row?.status]
-                            } text-white rounded-xl w-32`}
+                            className={`${statusColorMap[row?.status]
+                              } text-white rounded-xl w-32`}
                             sx={{
                               color: "white",
                               height: "1.75rem",
@@ -1098,9 +1102,9 @@ export default function Renewal() {
                                 borderColor: "transparent",
                               },
                               "&.Mui-focused .MuiOutlinedInput-notchedOutline":
-                                {
-                                  borderColor: "transparent",
-                                },
+                              {
+                                borderColor: "transparent",
+                              },
                               ".MuiSvgIcon-root": {
                                 color: "white",
                                 fontSize: "1.125rem",
@@ -1162,15 +1166,15 @@ export default function Renewal() {
                           <div className="flex items-center gap-2">
                             {(user?.type === "admin" ||
                               user?.type === "backend") && (
-                              <Button
-                                variant="outlined"
-                                size="small"
-                                onClick={() => handleEditRenewal(row)}
-                                sx={{ minWidth: "auto", px: 1 }}
-                              >
-                                Edit
-                              </Button>
-                            )}
+                                <Button
+                                  variant="outlined"
+                                  size="small"
+                                  onClick={() => handleEditRenewal(row)}
+                                  sx={{ minWidth: "auto", px: 1 }}
+                                >
+                                  Edit
+                                </Button>
+                              )}
                           </div>
                         </TableCell>
                       </TableRow>

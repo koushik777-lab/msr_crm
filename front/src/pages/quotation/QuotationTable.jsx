@@ -262,7 +262,7 @@ export default function QuotationTable({
                             {!row?.isManuallyCreated && (
                               <FiEye
                                 onClick={() => handleViewQuotation(row)}
-                                className="text-blue-500 hover:text-blue-700 cursor-pointer w-5 h-5"
+                                className="text-sky-500 hover:text-sky-700 cursor-pointer w-5 h-5"
                               />
                             )}
                           </>

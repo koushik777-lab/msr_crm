@@ -1,13 +1,13 @@
 1. in devolopmant mode
-cd backend
+cd back
 npm run dev
 
-cd frontend
+cd front
 npm run dev
 
 
 2. in production mode
-cd backend
+cd back
 npm run build-ui (optional)
 npm start
 

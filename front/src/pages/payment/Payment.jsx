@@ -139,214 +139,237 @@ const Payment = () => {
   ];
 
   return (
-    <React.Fragment>
+    <div className="w-full h-full flex flex-col bg-gray-50 rounded-xl">
       <BackHeader
         title={"Payment Link Generator"}
         showBtn={true}
         addbuttonText={"History"}
         onClick={showHistory}
       />
-      <div className="flex ">
-        <div className="flex flex-wrap grow justify-start gap-6 border-1 border-gray-300 rounded-lg p-4 mb-6 bg-white mt-4">
-          {QR.map((item) => (
-            <div>
-              <h2 className="text-center text-lg font-semibold mb-4 text-black">
-                {item.label}
-              </h2>
-              <div className="mx-auto mb-2 w-full flex items-center justify-center">
-                <Button
-                  variant="outlined"
-                  className="mx-auto mb-2 "
-                  onClick={() => copyImageToClipboard(item.image)}
-                >
-                  Copy to clipboard
-                </Button>
-              </div>
-              <img
-                src={item.image}
-                alt={item.label}
-                className="mx-auto mb-4"
-                style={{ width: "300px" }}
-              />
-            </div>
-          ))}
-        </div>
-        <div className="min-w-[500px] mx-auto px-4 py-8">
-          <div className="max-w-lg mx-auto bg-white rounded-lg shadow-md p-6">
-            <p className="text-gray-600 mb-6">
-              Generate a payment link to share with others
-            </p>
+      <div className="flex-1 overflow-y-auto no-scrollbar p-6">
+        <div className="flex flex-col xl:flex-row gap-6">
 
-            {error && (
-              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                {error}
-              </div>
-            )}
+          <div className="flex-1 min-w-[300px] xl:max-w-[450px]">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 transition-shadow hover:shadow-md sticky top-0">
+              <h2 className="text-xl font-bold text-gray-800 mb-2">Generate Link</h2>
+              <p className="text-gray-500 text-sm mb-6 border-b border-gray-100 pb-4">
+                Create a payment link to share with others
+              </p>
 
-            <form onSubmit={formik.handleSubmit} className="space-y-4">
-              <div>
-                <FormControl fullWidth>
-                  <InputLabel id="currency-label">Currency *</InputLabel>
-                  <Select
-                    size="small"
-                    labelId="currency-label"
-                    id="currency"
-                    name="currency"
-                    value={formik.values.currency}
-                    onChange={formik.handleChange}
-                    label="Currency *"
-                  >
-                    <MenuItem value="INR">INR (Indian Rupee)</MenuItem> {/* Indian Rupee */}
-                    <MenuItem value="USD">USD (United States Dollar)</MenuItem> {/* United States Dollar */}
-                    <MenuItem value="AED">AED (United Arab Emirates Dirham)</MenuItem> {/* United Arab Emirates Dirham */}
-                    <MenuItem value="SAR">SAR (Saudi Arabian Riyal)</MenuItem> {/* Saudi Arabian Riyal */}
-                    <MenuItem value="QAR">QAR (Qatari Riyal)</MenuItem> {/* Qatari Riyal */}
-                    <MenuItem value="KWD">KWD (Kuwaiti Dinar)</MenuItem> {/* Kuwaiti Dinar */}
-                    <MenuItem value="EUR">EUR (European Euro)</MenuItem> {/* European Euro */}
-                    <MenuItem value="GBP">GBP (British Pound Sterling)</MenuItem> {/* British Pound Sterling */}
-                    <MenuItem value="OMR">OMR (Omani Rial)</MenuItem> {/* Omani Rial */}
-                    <MenuItem value="CNY">CNY (Chinese Yuan Renminbi)</MenuItem> {/* Chinese Yuan Renminbi */}
-                    <MenuItem value="HKD">HKD (Hong Kong Dollar)</MenuItem> {/* Hong Kong Dollar */}
-                    <MenuItem value="SGD">SGD (Singapore Dollar)</MenuItem> {/* Singapore Dollar */}
-                    <MenuItem value="THB">THB (Thai Baht)</MenuItem> {/* Thai Baht */}
-                    <MenuItem value="MYR">MYR (Malaysian Ringgit)</MenuItem> {/* Malaysian Ringgit */}
-                    <MenuItem value="IDR">IDR (Indonesian Rupiah)</MenuItem> {/* Indonesian Rupiah */}
-                    <MenuItem value="JPY">JPY (Japanese Yen)</MenuItem> {/* Japanese Yen */}
-                    <MenuItem value="AUD">AUD (Australian Dollar)</MenuItem> {/* Australian Dollar */}
-                    <MenuItem value="NZD">NZD (New Zealand Dollar)</MenuItem> {/* New Zealand Dollar */}
-                    <MenuItem value="PKR">PKR (Pakistani Rupee)</MenuItem> {/* Pakistani Rupee */}
-                    <MenuItem value="RUB">RUB (Russian Ruble)</MenuItem> {/* Russian Ruble */}
-                    <MenuItem value="CAD">CAD (Canadian Dollar)</MenuItem> {/* Canadian Dollar */}
-
-
-                  </Select>
-                </FormControl>
-              </div>
-
-              <div>
-                <MyInput
-                  label="Amount *"
-                  type="number"
-                  name="amount"
-                  placeholder="Enter amount"
-                  value={formik.values.amount}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.amount && Boolean(formik.errors.amount)}
-                  helperText={formik.touched.amount && formik.errors.amount}
-                />
-              </div>
-
-              {formik.values.amount > 0 && (
-                <div className="text-black mb-4 ">
-                  Final amount will be{" "}
-                  {formik.values.currency == "INR"
-                    ? "₹" +
-                    (
-                      formik.values.amount +
-                      0.025 * formik.values.amount
-                    ).toFixed(2)
-                    : "$" +
-                    (
-                      formik.values.amount +
-                      0.035 * formik.values.amount
-                    ).toFixed(2)}
+              {error && (
+                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl mb-6 text-sm flex items-start gap-2">
+                  <span className="font-bold mt-0.5">!</span>
+                  <span>{error}</span>
                 </div>
               )}
 
-              <div>
-                <MyInput
-                  label="Description *"
-                  name="description"
-                  placeholder="What is this payment for?"
-                  value={formik.values.description}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.description &&
-                    Boolean(formik.errors.description)
-                  }
-                  helperText={
-                    formik.touched.description && formik.errors.description
-                  }
-                />
-              </div>
+              <form onSubmit={formik.handleSubmit} className="space-y-5">
+                <div>
+                  <FormControl fullWidth>
+                    <InputLabel id="currency-label" size="small">Currency *</InputLabel>
+                    <Select
+                      size="small"
+                      labelId="currency-label"
+                      id="currency"
+                      name="currency"
+                      value={formik.values.currency}
+                      onChange={formik.handleChange}
+                      label="Currency *"
+                      sx={{ borderRadius: '8px' }}
+                    >
+                      <MenuItem value="INR">INR (Indian Rupee)</MenuItem>
+                      <MenuItem value="USD">USD (United States Dollar)</MenuItem>
+                      <MenuItem value="AED">AED (United Arab Emirates Dirham)</MenuItem>
+                      <MenuItem value="SAR">SAR (Saudi Arabian Riyal)</MenuItem>
+                      <MenuItem value="QAR">QAR (Qatari Riyal)</MenuItem>
+                      <MenuItem value="KWD">KWD (Kuwaiti Dinar)</MenuItem>
+                      <MenuItem value="EUR">EUR (European Euro)</MenuItem>
+                      <MenuItem value="GBP">GBP (British Pound Sterling)</MenuItem>
+                      <MenuItem value="OMR">OMR (Omani Rial)</MenuItem>
+                      <MenuItem value="CNY">CNY (Chinese Yuan Renminbi)</MenuItem>
+                      <MenuItem value="HKD">HKD (Hong Kong Dollar)</MenuItem>
+                      <MenuItem value="SGD">SGD (Singapore Dollar)</MenuItem>
+                      <MenuItem value="THB">THB (Thai Baht)</MenuItem>
+                      <MenuItem value="MYR">MYR (Malaysian Ringgit)</MenuItem>
+                      <MenuItem value="IDR">IDR (Indonesian Rupiah)</MenuItem>
+                      <MenuItem value="JPY">JPY (Japanese Yen)</MenuItem>
+                      <MenuItem value="AUD">AUD (Australian Dollar)</MenuItem>
+                      <MenuItem value="NZD">NZD (New Zealand Dollar)</MenuItem>
+                      <MenuItem value="PKR">PKR (Pakistani Rupee)</MenuItem>
+                      <MenuItem value="RUB">RUB (Russian Ruble)</MenuItem>
+                      <MenuItem value="CAD">CAD (Canadian Dollar)</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
 
-              <div>
-                <MyInput
-                  label="Name *"
-                  name="name"
-                  placeholder="Enter name"
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.name && Boolean(formik.errors.name)}
-                  helperText={formik.touched.name && formik.errors.name}
-                />
-              </div>
+                <div>
+                  <MyInput
+                    label="Amount *"
+                    type="number"
+                    name="amount"
+                    placeholder="Enter amount"
+                    value={formik.values.amount}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.amount && Boolean(formik.errors.amount)}
+                    helperText={formik.touched.amount && formik.errors.amount}
+                  />
+                </div>
 
-              <div>
-                <MyInput
-                  label="Email *"
-                  type="email"
-                  name="email"
-                  placeholder="Enter email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.email && Boolean(formik.errors.email)}
-                  helperText={formik.touched.email && formik.errors.email}
-                />
-              </div>
+                {formik.values.amount > 0 && (
+                  <div className="bg-sky-50 text-sky-700 px-4 py-3 rounded-xl text-sm font-medium border border-sky-100 flex justify-between items-center">
+                    <span>Final amount to pay:</span>
+                    <span className="text-lg">
+                      {formik.values.currency == "INR"
+                        ? "₹" +
+                        (
+                          formik.values.amount +
+                          0.025 * formik.values.amount
+                        ).toFixed(2)
+                        : "$" +
+                        (
+                          formik.values.amount +
+                          0.035 * formik.values.amount
+                        ).toFixed(2)}
+                    </span>
+                  </div>
+                )}
 
-              <div>
-                <label
-                  htmlFor="expiryDate"
-                  className="block text-gray-700 font-medium mb-2"
-                >
-                  Expiry Date *
+                <div>
+                  <MyInput
+                    label="Description *"
+                    name="description"
+                    placeholder="What is this payment for?"
+                    value={formik.values.description}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.touched.description &&
+                      Boolean(formik.errors.description)
+                    }
+                    helperText={
+                      formik.touched.description && formik.errors.description
+                    }
+                  />
+                </div>
+
+                <div>
+                  <MyInput
+                    label="Customer Name *"
+                    name="name"
+                    placeholder="Enter name"
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.name && Boolean(formik.errors.name)}
+                    helperText={formik.touched.name && formik.errors.name}
+                  />
+                </div>
+
+                <div>
+                  <MyInput
+                    label="Customer Email *"
+                    type="email"
+                    name="email"
+                    placeholder="Enter email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.email && Boolean(formik.errors.email)}
+                    helperText={formik.touched.email && formik.errors.email}
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="expiryDate"
+                    className="block text-gray-700 text-sm font-medium mb-1.5"
+                  >
+                    Link Expiry Date *
+                  </label>
                   <input
                     id="expiryDate"
                     type="date"
-                    className={`w-full p-3 border rounded-md ${formik.touched.expiryDate && formik.errors.expiryDate
-                      ? "border-red-500"
-                      : "border-gray-300"
+                    className={`w-full p-2.5 bg-transparent border rounded-lg outline-none transition-colors ${formik.touched.expiryDate && formik.errors.expiryDate
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-gray-300 focus:border-sky-500"
                       }`}
                     min={moment().add(1, "days").format("YYYY-MM-DD")}
                     {...formik.getFieldProps("expiryDate")}
                   />
                   {formik.touched.expiryDate && formik.errors.expiryDate ? (
-                    <div className="text-red-500 text-sm mt-1">
+                    <div className="text-red-500 text-xs mt-1.5 font-medium">
                       {formik.errors.expiryDate}
                     </div>
                   ) : null}
-                </label>
-              </div>
+                </div>
 
-              <div className="pt-4">
-                <button
-                  type="submit"
-                  className="w-full text-white py-3 rounded-md hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2"
-                  style={{
-                    backgroundColor: "#1364FF",
-                    focusRingColor: "#1364FF",
-                  }}
-                  disabled={isLoading}
-                >
-                  {isLoading ? "Generating..." : "Generate Payment Link"}
-                </button>
-              </div>
-            </form>
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    className="w-full text-white py-3 px-4 rounded-xl font-medium shadow-sm hover:shadow-md transition-all duration-200 transform hover:-translate-y-0.5 flex justify-center items-center h-12"
+                    style={{
+                      backgroundColor: "#0ea5e9",
+                    }}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <span className="flex items-center gap-2">
+                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Generating...
+                      </span>
+                    ) : "Generate Payment Link"}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
+
+          <div className="flex-[2]">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 transition-shadow hover:shadow-md h-full">
+              <h2 className="text-xl font-bold text-gray-800 mb-2">QR Codes</h2>
+              <p className="text-gray-500 text-sm mb-6 border-b border-gray-100 pb-4">
+                Scan or share these QR codes for direct payments
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {QR.map((item, index) => (
+                  <div key={index} className="flex flex-col items-center p-4 border border-gray-100 rounded-xl bg-gray-50/50 hover:bg-gray-50 transition-colors group">
+                    <h3 className="text-center font-bold text-gray-700 mb-4 h-6">
+                      {item.label}
+                    </h3>
+                    <div className="bg-white p-3 rounded-xl shadow-sm border border-gray-100 mb-4 transition-transform duration-300 group-hover:scale-105">
+                      <img
+                        src={item.image}
+                        alt={item.label}
+                        className="w-48 h-48 object-contain"
+                      />
+                    </div>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      className="w-full rounded-lg"
+                      onClick={() => copyImageToClipboard(item.image)}
+                      sx={{ textTransform: 'none', borderRadius: '8px' }}
+                    >
+                      Copy to clipboard
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-
       <PaymentLinkHistory
         isOpen={showHistoryPopup}
         onClose={closeHistoryPopup}
       />
-    </React.Fragment>
+    </div>
   );
 };
-
 export default Payment;

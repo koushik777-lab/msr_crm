@@ -70,7 +70,7 @@ const Login = () => {
         <motion.div
           animate={{ rotate: -360, scale: [1, 1.5, 1] }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-blue-600/20 blur-[150px]"
+          className="absolute bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-sky-600/20 blur-[150px]"
         />
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
       </div>
@@ -87,7 +87,7 @@ const Login = () => {
             className="relative z-20 w-full max-w-lg xl:max-w-xl flex justify-center items-center"
           >
             <div className="relative w-full flex justify-center items-center">
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-[2.5rem] blur-2xl opacity-40"></div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-[2.5rem] blur-2xl opacity-40"></div>
               <img
                 src={"/crmImg.png"}
                 alt="CRM System"
@@ -102,7 +102,7 @@ const Login = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="max-w-xl mt-12 text-center z-20"
           >
-            <h1 className="text-4xl lg:text-5xl font-black mb-4 tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-blue-100 to-indigo-300">
+            <h1 className="text-4xl lg:text-5xl font-black mb-4 tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-sky-100 to-indigo-300">
               Future of Business
             </h1>
             <p className="text-lg text-indigo-200/80 font-medium font-light">
@@ -258,7 +258,7 @@ const Login = () => {
                   whileTap={{ scale: 0.98 }}
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-4 rounded-xl text-white font-bold text-base flex items-center justify-center transition-all mt-4 bg-gradient-to-r from-indigo-600 to-blue-500 disabled:opacity-70 disabled:cursor-not-allowed group relative overflow-hidden"
+                  className="w-full py-4 rounded-xl text-white font-bold text-base flex items-center justify-center transition-all mt-4 bg-gradient-to-r from-indigo-600 to-sky-500 disabled:opacity-70 disabled:cursor-not-allowed group relative overflow-hidden"
                 >
                   {/* Button shine effect */}
                   <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-20 group-hover:animate-shine" />

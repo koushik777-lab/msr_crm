@@ -375,7 +375,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
               <div className="space-y-4">
                 <h2
                   className="text-lg font-semibold border-b pb-2"
-                  style={{ color: "#1364FF" }}
+                  style={{ color: "#0ea5e9" }}
                 >
                   Basic Information
                 </h2>
@@ -484,7 +484,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
               <div className="space-y-4">
                 <h2
                   className="text-lg font-semibold border-b pb-2"
-                  style={{ color: "#1364FF" }}
+                  style={{ color: "#0ea5e9" }}
                 >
                   Contact Information
                 </h2>
@@ -524,7 +524,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
               <div className="space-y-4">
                 <h2
                   className="text-lg font-semibold border-b pb-2"
-                  style={{ color: "#1364FF" }}
+                  style={{ color: "#0ea5e9" }}
                 >
                   Currency type
                 </h2>
@@ -549,7 +549,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
               <div className="space-y-4">
                 <h2
                   className="text-lg font-semibold border-b pb-2"
-                  style={{ color: "#1364FF" }}
+                  style={{ color: "#0ea5e9" }}
                 >
                   Entity Type
                 </h2>
@@ -593,7 +593,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
               <div className="space-y-4">
                 <h2
                   className="text-lg font-semibold border-b pb-2"
-                  style={{ color: "#1364FF" }}
+                  style={{ color: "#0ea5e9" }}
                 >
                   Fees Structure
                 </h2>
@@ -640,7 +640,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
                             type="text"
                             // label="Service Docs"
                             placeholder="Enter service name"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 mb-4"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 mb-4"
                           />
                           <div className="mb-3 mt-3">
                             {/* <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -837,7 +837,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
                               name={`licenseRegistrationFees.${index}.professionalFees`}
                               type="number"
                               placeholder="Enter professional fees"
-                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500"
                               onChange={(e) => {
                                 handleChange(e);
                                 const newValue = e.target.value;
@@ -902,7 +902,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
                           handleAddLicenseItem(arrayHelpers, values)
                         }
                         className="w-full py-2 bg-gray-100 rounded-md hover:bg-gray-200 font-medium"
-                        style={{ color: "#1364FF" }}
+                        style={{ color: "#0ea5e9" }}
                       >
                         + Add Item
                       </button>
@@ -913,7 +913,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
               <div className="space-y-4">
                 <h2
                   className="text-lg font-semibold border-b pb-2"
-                  style={{ color: "#1364FF" }}
+                  style={{ color: "#0ea5e9" }}
                 >
                   Discount
                 </h2>
@@ -931,7 +931,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
               <div className="space-y-4">
                 <h2
                   className="text-lg font-semibold border-b pb-2"
-                  style={{ color: "#1364FF" }}
+                  style={{ color: "#0ea5e9" }}
                 >
                   Fee Structure Compliances
                 </h2>
@@ -978,7 +978,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
                             type="text"
                             // label="Service Docs"
                             placeholder="Enter service name"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 mb-4"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 mb-4"
                           />
 
                           <div className="my-3">
@@ -1046,7 +1046,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
                           name={`feeStructureCompliances.${index}.service`}
                           type="text"
                           placeholder="Enter service name"
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500"
                         /> */}
                           </div>
 
@@ -1180,7 +1180,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
                               name={`feeStructureCompliances.${index}.professionalFees`}
                               type="number"
                               placeholder="Enter professional fees"
-                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500"
                               onChange={(e) => {
                                 handleChange(e);
                                 const newValue = e.target.value;
@@ -1268,7 +1268,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
                           handleAddComplianceItem(arrayHelpers, values)
                         }
                         className="w-full py-2 bg-gray-100 rounded-md hover:bg-gray-200 font-medium"
-                        style={{ color: "#1364FF" }}
+                        style={{ color: "#0ea5e9" }}
                       >
                         + Add Item
                       </button>
@@ -1281,7 +1281,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
               <div className="space-y-4">
                 <h2
                   className="text-lg font-semibold border-b pb-2"
-                  style={{ color: "#1364FF" }}
+                  style={{ color: "#0ea5e9" }}
                 >
                   Account Details
                 </h2>
@@ -1290,7 +1290,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
                   <button
                     type="button"
                     className={`flex-1 py-2 text-center border ${values.isGST ? "text-white" : "bg-white text-gray-700"}`}
-                    style={{ backgroundColor: values.isGST ? "#1364FF" : "" }}
+                    style={{ backgroundColor: values.isGST ? "#0ea5e9" : "" }}
                     onClick={() => setFieldValue("isGST", true)}
                   >
                     With GST
@@ -1298,7 +1298,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
                   <button
                     type="button"
                     className={`flex-1 py-2 text-center border ${!values.isGST ? "text-white" : "bg-white text-gray-700"}`}
-                    style={{ backgroundColor: !values.isGST ? "#1364FF" : "" }}
+                    style={{ backgroundColor: !values.isGST ? "#0ea5e9" : "" }}
                     onClick={() => setFieldValue("isGST", false)}
                   >
                     Without GST
@@ -1366,7 +1366,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
               <div className="space-y-4">
                 <h2
                   className="text-lg font-semibold border-b pb-2"
-                  style={{ color: "#1364FF" }}
+                  style={{ color: "#0ea5e9" }}
                 >
                   Documents Required
                 </h2>
@@ -1407,7 +1407,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
                         type="button"
                         onClick={() => arrayHelpers.push("")}
                         className="w-full py-2 bg-gray-100 rounded-md hover:bg-gray-200 font-medium"
-                        style={{ color: "#1364FF" }}
+                        style={{ color: "#0ea5e9" }}
                       >
                         + Add Document
                       </button>
@@ -1420,7 +1420,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
               <div className="space-y-4">
                 <h2
                   className="text-lg font-semibold border-b pb-2"
-                  style={{ color: "#1364FF" }}
+                  style={{ color: "#0ea5e9" }}
                 >
                   Quotation Signatures
                 </h2>
@@ -1469,7 +1469,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
               <div className="space-y-4">
                 <h2
                   className="text-lg font-semibold border-b pb-2"
-                  style={{ color: "#1364FF" }}
+                  style={{ color: "#0ea5e9" }}
                 >
                   Notes
                 </h2>
@@ -1496,7 +1496,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
                 <div className="space-y-4 my-12">
                   <h2
                     className="text-lg font-semibold border-b pb-2"
-                    style={{ color: "#1364FF" }}
+                    style={{ color: "#0ea5e9" }}
                   >
                     Remarks
                   </h2>
@@ -1524,7 +1524,7 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
                 <div className="space-y-4">
                   <h2
                     className="text-lg font-semibold border-b pb-2"
-                    style={{ color: "#1364FF" }}
+                    style={{ color: "#0ea5e9" }}
                   >
                     Feedback
                   </h2>
@@ -1558,8 +1558,8 @@ const QuotationForm = ({ initialData, onSubmit, editMode }) => {
                   disabled={isSubmitting}
                   className="w-full py-3 text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                   style={{
-                    backgroundColor: "#1364FF",
-                    focusRingColor: "#1364FF",
+                    backgroundColor: "#0ea5e9",
+                    focusRingColor: "#0ea5e9",
                   }}
                 >
                   {isSubmitting ? "Generating..." : "Generate Quotation"}
