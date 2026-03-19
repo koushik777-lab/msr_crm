@@ -297,7 +297,7 @@ const PaymentHistory = () => {
           setIsShowAll(!isShowAll);
         }}
       >
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-1.5">
           {!isSalesManager && !isAgent && (
             <Button
               style={{ backgroundColor: "#4CAF50", textWrap: "nowrap", borderRadius: '8px' }}
@@ -354,7 +354,7 @@ const PaymentHistory = () => {
                   setIsShowDateFilter(false);
                 }}
                 variant="contained"
-                sx={{ borderRadius: '8px', backgroundColor: '#0ea5e9' }}
+                sx={{ borderRadius: '8px', backgroundColor: '#0ea5e9', height: '36px', whiteSpace: "nowrap" }}
                 disableElevation
               >
                 Apply
@@ -362,7 +362,7 @@ const PaymentHistory = () => {
             </DialogActions>
           </Dialog>
 
-          <Box sx={{ width: 180 }}>
+          <Box sx={{ width: 130 }}>
             <TextField
               fullWidth
               size="small"
@@ -375,7 +375,7 @@ const PaymentHistory = () => {
               sx={{ "& .MuiOutlinedInput-root": { borderRadius: "8px", backgroundColor: "white" } }}
             />
           </Box>
-          <Box sx={{ width: 170 }}>
+          <Box sx={{ width: 130 }}>
             <TextField
               fullWidth
               size="small"
@@ -386,7 +386,7 @@ const PaymentHistory = () => {
               sx={{ "& .MuiOutlinedInput-root": { borderRadius: "8px", backgroundColor: "white" } }}
             />
           </Box>
-          <Box sx={{ width: 140 }}>
+          <Box sx={{ width: 110 }}>
             <FormControl size="small" fullWidth>
               <InputLabel id="client-select-label" shrink={false}>{filter.isClient ? '' : 'Type: All'}</InputLabel>
               <Select
@@ -406,7 +406,7 @@ const PaymentHistory = () => {
             </FormControl>
           </Box>
           {!isAgent && (
-            <Box sx={{ width: 150 }}>
+            <Box sx={{ width: 120 }}>
               <FormControl size="small" fullWidth>
                 <InputLabel id="agent-select-label" shrink={false}>{filter.marketingExecutive ? '' : 'Agent: All'}</InputLabel>
                 <Select
@@ -438,14 +438,14 @@ const PaymentHistory = () => {
             }
             variant="outlined"
             size="small"
-            sx={{ borderRadius: '8px', height: '40px' }}
+            sx={{ borderRadius: '8px', height: '36px', whiteSpace: "nowrap" }}
           >
             Clear Filters
           </Button>
         </div>
       </BackHeader>
 
-      <div className="flex-1 overflow-auto p-4 md:p-6">
+      <div className="flex-1 overflow-auto p-2 md:p-3">
         {loading ? (
           <div className="w-full h-full flex justify-center items-center">
             <Loader />
@@ -567,11 +567,11 @@ const PaymentHistoryTable = ({ payments, onEdit, fetchPayments }) => {
           overflow: "auto",
         }}
       >
-        <Table stickyHeader sx={{ minWidth: 1200 }}>
+        <Table stickyHeader size="small" sx={{ minWidth: 1200 }}>
           <TableHead>
             <TableRow>
               <TableCell
-                sx={{ fontWeight: "bold", backgroundColor: "#e3f2fd" }}
+                sx={{ fontWeight: "bold", backgroundColor: "#e3f2fd", padding: "4px 8px" }}
               >
                 Invoice Number
               </TableCell>

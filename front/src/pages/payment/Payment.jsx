@@ -146,11 +146,11 @@ const Payment = () => {
         addbuttonText={"History"}
         onClick={showHistory}
       />
-      <div className="flex-1 overflow-y-auto no-scrollbar p-6">
-        <div className="flex flex-col xl:flex-row gap-6">
+      <div className="flex-1 overflow-y-auto no-scrollbar p-4">
+        <div className="flex flex-col xl:flex-row gap-4">
 
           <div className="flex-1 min-w-[300px] xl:max-w-[450px]">
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 transition-shadow hover:shadow-md sticky top-0">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 transition-shadow hover:shadow-md sticky top-0">
               <h2 className="text-xl font-bold text-gray-800 mb-2">Generate Link</h2>
               <p className="text-gray-500 text-sm mb-6 border-b border-gray-100 pb-4">
                 Create a payment link to share with others

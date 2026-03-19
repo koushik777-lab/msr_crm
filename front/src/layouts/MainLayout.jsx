@@ -57,7 +57,7 @@ const MainLayout = () => {
 
         <main
           className={`flex-1 overflow-x-hidden overflow-y-auto ${pathname != "/leads" ? "container max-w-[1836px]" : "w-full"
-            } mx-auto px-4 py-8`}
+            } mx-auto px-4 pt-0 pb-4`}
         >
           <div className="w-full h-full">
             <Outlet />

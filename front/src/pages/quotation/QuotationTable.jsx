@@ -196,7 +196,7 @@ export default function QuotationTable({
                     whiteSpace: "nowrap",
                     textDecoration: "uppercase",
                     height: "40px",
-                    padding: "0 16px",
+                    padding: "0 8px",
                     borderBottom: "1px solid #E0E0E0",
                     ...(header === "ACTIONS" && {
                       position: "sticky",
@@ -226,7 +226,7 @@ export default function QuotationTable({
                   key={rowIndex}
                   sx={{
                     backgroundColor: rowIndex % 2 === 0 ? "#FFFFFF" : "#F9F9F9",
-                    height: "42px",
+                    height: "36px",
                     "&:hover": { backgroundColor: "#F5F5F5" },
                     borderBottom: "4px solid #f3f3f3",
                   }}
@@ -236,8 +236,8 @@ export default function QuotationTable({
                       key={cellIndex}
                       sx={{
                         fontSize: "14px",
-                        height: "42px",
-                        padding: "8px 16px",
+                        height: "36px",
+                        padding: "4px 8px",
                         maxWidth: "250px",
                         whiteSpace: "nowrap",
                         overflow: "hidden",

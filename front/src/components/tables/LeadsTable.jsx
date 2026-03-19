@@ -241,7 +241,7 @@ const LeadsTable = ({
                     whiteSpace: "nowrap",
                     textDecoration: "uppercase",
                     height: "40px",
-                    padding: "0 16px",
+                    padding: "0 8px",
                     borderBottom: "1px solid #E0E0E0",
                   }}
                 >
@@ -257,7 +257,7 @@ const LeadsTable = ({
                 selected={isSelected(row)}
                 sx={{
                   backgroundColor: rowIndex % 2 === 0 ? "#FFFFFF" : "#F9F9F9",
-                  height: "42px", // Increased height from 36px to 42px
+                  height: "36px", // Reduced height
                   "&:hover": { backgroundColor: "#F5F5F5" },
                   borderBottom: "4px solid #f3f3f3", // Add a bottom border for spacing
                 }}
@@ -265,7 +265,7 @@ const LeadsTable = ({
                 <TableCell
                   padding="checkbox"
                   sx={{
-                    height: "42px", // Match the increased row height
+                    height: "36px", // Reduced height
                     padding: "0 8px",
                     position: "sticky",
                     left: 0,
@@ -289,8 +289,8 @@ const LeadsTable = ({
                         align={header.align || "left"}
                         sx={{
                           fontSize: "14px",
-                          height: "42px", // Match the increased row height
-                          padding: "8px 16px", // Increased vertical padding from 4px to 8px
+                          height: "36px", // Reduced height
+                          padding: "4px 8px", // Reduced padding
                           maxWidth:
                             header.label === "email" ||
                             header.label === "address"

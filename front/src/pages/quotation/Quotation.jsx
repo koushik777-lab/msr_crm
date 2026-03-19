@@ -646,12 +646,12 @@ const Quotation = () => {
         key={"quotation"}
       >
         {showAll && !openManualQuotation && (
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-1.5 justify-end">
             {!isAgent && !isBackend && (
               <Autocomplete
                 options={agentList ? agentList : []}
                 getOptionLabel={(option) => option.name}
-                sx={{ width: 140 }}
+                sx={{ width: 110 }}
                 value={selectedAgent}
                 onChange={(e, val) => {
                   setSelectedAgent(val);
@@ -679,7 +679,7 @@ const Quotation = () => {
                   { name: "Shop My Barcode", key: "smb" },
                 ]}
                 getOptionLabel={(option) => option.name}
-                sx={{ width: 140 }}
+                sx={{ width: 110 }}
                 value={selectedQuotationType}
                 disableClearable
                 onChange={(e, val) => {
@@ -704,7 +704,7 @@ const Quotation = () => {
               variant="contained"
               onClick={() => setIsShowDate(!isShowDate)}
               size="small"
-              sx={{ flexShrink: 0, whiteSpace: "nowrap" }}
+              sx={{ flexShrink: 0, whiteSpace: "nowrap", height: "34px", padding: "4px 8px", fontSize: "12px" }}
             >
               Select date Range
             </Button>
@@ -717,7 +717,7 @@ const Quotation = () => {
                 })
               }
               size="small"
-              sx={{ flexShrink: 0, whiteSpace: "nowrap" }}
+              sx={{ flexShrink: 0, whiteSpace: "nowrap", height: "34px", padding: "4px 8px", fontSize: "12px" }}
             >
               Clear Range
             </Button>
@@ -728,7 +728,7 @@ const Quotation = () => {
                 onClick={() => {
                   setIsOpenBulk(true);
                 }}
-                sx={{ flexShrink: 0, whiteSpace: "nowrap" }}
+                sx={{ flexShrink: 0, whiteSpace: "nowrap", height: "34px", padding: "4px 8px", fontSize: "12px" }}
               >
                 Bulk Transfer
               </Button>
@@ -791,7 +791,7 @@ const Quotation = () => {
                 variant="contained"
                 size="small"
                 style={{ backgroundColor: "#4CAF50" }}
-                sx={{ whiteSpace: "nowrap", flexShrink: 0 }}
+                sx={{ whiteSpace: "nowrap", flexShrink: 0, height: "34px", padding: "4px 8px", fontSize: "12px" }}
                 onClick={() => setOpenExportPopup(true)}
               >
                 Export to Excel
@@ -801,7 +801,7 @@ const Quotation = () => {
               label="Search "
               placeholder="Search by Name/Number"
               size="small"
-              sx={{ width: 180 }}
+              sx={{ width: 125 }}
               onChange={DEBOUNCE(
                 (e) => setSearchQuotations(e.target.value),
                 500,

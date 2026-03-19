@@ -241,7 +241,7 @@ const Leads = () => {
           showBtn={true}
           addbuttonText={"Add Lead"}
         >
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-1.5">
             {!isAgent && (
               <div className="flex items-center gap-1 shrink-0">
                 <TextField
@@ -258,7 +258,7 @@ const Leads = () => {
                     },
                   }}
                   size="small"
-                  sx={{ width: 130 }}
+                  sx={{ width: 110 }}
                 />
                 <TextField
                   label="End Date"
@@ -274,14 +274,14 @@ const Leads = () => {
                       min: startDate || undefined,
                     },
                   }}
-                  sx={{ width: 130 }}
+                  sx={{ width: 110 }}
                 />
                 {(startDate || endDate) && (
                   <Button
                     size="small"
                     variant="outlined"
                     onClick={clearDateFilter}
-                    sx={{ height: "40px", minWidth: "60px" }}
+                    sx={{ height: "34px", minWidth: "60px", padding: "4px 8px", fontSize: "12px" }}
                   >
                     Clear
                   </Button>
@@ -303,7 +303,7 @@ const Leads = () => {
                   }
                 }}
                 size="small"
-                sx={{ width: 140 }}
+                sx={{ width: 110 }}
                 slotProps={{
                   inputLabel: {
                     shrink: true,
@@ -316,7 +316,7 @@ const Leads = () => {
                 id="combo-box-demo"
                 options={LEAD_STATUS}
                 // getOptionLabel={(option) => option.name}
-                style={{ width: 140 }}
+                style={{ width: 110 }}
                 onChange={(e, val) => {
                   // console.log(val)
                   setSelectedStatus(val);
@@ -341,7 +341,7 @@ const Leads = () => {
                     id="combo-box-demo"
                     options={agents}
                     getOptionLabel={(option) => option.name}
-                    style={{ width: 150 }}
+                    style={{ width: 120 }}
                     onChange={(e, val) => {
                       // console.log(val);
                       // setSelectedStatus(val);
@@ -363,6 +363,7 @@ const Leads = () => {
                   <Button
                     variant="contained"
                     onClick={() => setPopupType("State")}
+                    sx={{ height: "34px", padding: "4px 8px", fontSize: "12px" }}
                   >
                     Assign By State
                   </Button>
@@ -386,9 +387,9 @@ const Leads = () => {
                   size="small"
                   disabled={excelUploading}
                   sx={{
-                    minWidth: "36px",
-                    width: "36px",
-                    height: "36px",
+                    minWidth: "34px",
+                    width: "34px",
+                    height: "34px",
                     backgroundColor: "#2e7d32",
                     "&:hover": {
                       backgroundColor: "#1b5e20",
@@ -408,7 +409,7 @@ const Leads = () => {
             )}
           </div>
         </BackHeader>
-        <div className="flex gap-6 my-6 h-[calc(100vh-140px)]">
+        <div className="flex gap-4 mt-2 mb-4 h-[calc(100vh-120px)]">
           {/* Left Sidebar Filter */}
           <div className="w-[280px] flex-shrink-0 flex flex-col bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="p-4 border-b border-gray-100 bg-gray-50/50">
