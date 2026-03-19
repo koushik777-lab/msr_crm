@@ -192,7 +192,7 @@ const LeadsTable = ({
   console.log("tableBody", tableBody);
   return (
     <>
-      <TableContainer component={Paper} className="h-[65vh]  overflow-x-auto">
+      <TableContainer component={Paper} elevation={0} className="h-full overflow-auto">
         <Table stickyHeader size="small" aria-label="leads table">
           <TableHead>
             <TableRow>

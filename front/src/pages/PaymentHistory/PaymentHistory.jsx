@@ -297,10 +297,10 @@ const PaymentHistory = () => {
           setIsShowAll(!isShowAll);
         }}
       >
-        <div className="flex flex-wrap items-center gap-1.5">
+        <div className="flex flex-wrap justify-end items-center gap-1.5 w-full xl:w-auto max-w-full">
           {!isSalesManager && !isAgent && (
             <Button
-              style={{ backgroundColor: "#4CAF50", textWrap: "nowrap", borderRadius: '8px' }}
+              style={{ backgroundColor: "#4CAF50", whiteSpace: "nowrap", borderRadius: '8px', height: '34px', padding: "4px 8px", fontSize: "12px" }}
               onClick={() => {
                 handleExportToExcel();
                 // add functionality to export table in excel and download it here
@@ -316,7 +316,7 @@ const PaymentHistory = () => {
             variant="contained"
             onClick={() => setIsShowDateFilter(!isShowDateFilter)}
             size="small"
-            sx={{ borderRadius: '8px', backgroundColor: '#0ea5e9' }}
+            sx={{ borderRadius: '8px', backgroundColor: '#0ea5e9', height: '34px', padding: "4px 8px", fontSize: "12px", whiteSpace: "nowrap" }}
             disableElevation
           >
             Date Filter
@@ -362,7 +362,7 @@ const PaymentHistory = () => {
             </DialogActions>
           </Dialog>
 
-          <Box sx={{ width: 130 }}>
+          <Box sx={{ width: 115 }}>
             <TextField
               fullWidth
               size="small"
@@ -375,7 +375,7 @@ const PaymentHistory = () => {
               sx={{ "& .MuiOutlinedInput-root": { borderRadius: "8px", backgroundColor: "white" } }}
             />
           </Box>
-          <Box sx={{ width: 130 }}>
+          <Box sx={{ width: 110 }}>
             <TextField
               fullWidth
               size="small"
@@ -386,7 +386,7 @@ const PaymentHistory = () => {
               sx={{ "& .MuiOutlinedInput-root": { borderRadius: "8px", backgroundColor: "white" } }}
             />
           </Box>
-          <Box sx={{ width: 110 }}>
+          <Box sx={{ width: 95 }}>
             <FormControl size="small" fullWidth>
               <InputLabel id="client-select-label" shrink={false}>{filter.isClient ? '' : 'Type: All'}</InputLabel>
               <Select
@@ -406,7 +406,7 @@ const PaymentHistory = () => {
             </FormControl>
           </Box>
           {!isAgent && (
-            <Box sx={{ width: 120 }}>
+            <Box sx={{ width: 105 }}>
               <FormControl size="small" fullWidth>
                 <InputLabel id="agent-select-label" shrink={false}>{filter.marketingExecutive ? '' : 'Agent: All'}</InputLabel>
                 <Select
@@ -438,14 +438,14 @@ const PaymentHistory = () => {
             }
             variant="outlined"
             size="small"
-            sx={{ borderRadius: '8px', height: '36px', whiteSpace: "nowrap" }}
+            sx={{ borderRadius: '8px', height: '34px', whiteSpace: "nowrap", padding: "4px 8px", fontSize: "12px" }}
           >
             Clear Filters
           </Button>
         </div>
       </BackHeader>
 
-      <div className="flex-1 overflow-auto p-2 md:p-3">
+      <div className="flex-1 overflow-auto p-2 md:p-3 min-h-0">
         {loading ? (
           <div className="w-full h-full flex justify-center items-center">
             <Loader />
@@ -559,11 +559,12 @@ const PaymentHistoryTable = ({ payments, onEdit, fetchPayments }) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full flex-1 flex flex-col min-h-0">
       <TableContainer
         component={Paper}
+        elevation={0}
         sx={{
-          maxHeight: "calc(100vh - 180px)",
+          height: "100%",
           overflow: "auto",
         }}
       >

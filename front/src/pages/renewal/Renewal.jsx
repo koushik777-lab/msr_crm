@@ -571,21 +571,21 @@ export default function Renewal() {
   }
   console.log(filter);
   return (
-    <div className="w-full h-full flex flex-col bg-gray-50 rounded-xl">
+    <div className="w-full h-full flex flex-col bg-gray-50 rounded-xl overflow-hidden">
       <BackHeader
         onClick={handleUploadClick}
         title="Renewal & Survey"
         showBtn={!isAgent && !isSalesManager}
         addbuttonText={"Upload Excel"}
       >
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-1.5 justify-end w-full xl:w-auto max-w-full">
           {/* Add Renewal Button */}
           {!isAgent && !isSalesManager && (
             <Button
               variant="contained"
               color="primary"
               onClick={() => setIsAddRenewalPopupOpen(true)}
-              sx={{ mr: { xs: 0, sm: 2 }, mb: { xs: 1, sm: 0 }, borderRadius: '8px' }}
+              sx={{ h: "34px", padding: "4px 8px", fontSize: "12px", borderRadius: '8px', whiteSpace: "nowrap" }}
               disableElevation
             >
               Add Renewal
@@ -643,9 +643,11 @@ export default function Renewal() {
                     filter.type === item.type
                       ? "0 2px 4px rgba(0,0,0,0.2)"
                       : "none",
-                  padding: "4px 10px",
-                  marginRight: "4px",
+                  height: "30px",
+                  padding: "2px 6px",
+                  fontSize: "10px",
                   borderRadius: "4px",
+                  whiteSpace: "nowrap",
                 }}
               >
                 {item.label}
@@ -669,8 +671,11 @@ export default function Renewal() {
                 }
                 sx={{
                   minWidth: "auto",
-                  padding: "4px 10px",
-                  marginLeft: "8px",
+                  padding: "2px 6px",
+                  height: "30px",
+                  fontSize: "10px",
+                  whiteSpace: "nowrap",
+                  marginLeft: "4px",
                   border: "1px solid #f44336",
                   "&:hover": {
                     backgroundColor: "rgba(244, 67, 54, 0.04)",
@@ -687,7 +692,7 @@ export default function Renewal() {
               id="combo-box-demo"
               options={agentList}
               getOptionLabel={(option) => option.name}
-              style={{ width: 140 }}
+              style={{ width: 110 }}
               onChange={(e, val) => {
                 val && handleMultiAgentAssign(val._id);
               }}
@@ -707,7 +712,7 @@ export default function Renewal() {
               label="Search"
               size="small"
               placeholder="Search By Company/Phone"
-              sx={{ width: 170 }}
+              sx={{ width: 140 }}
               onChange={DEBOUNCE((e) => setSearch(e.target.value), 500)}
             />
             <Button
@@ -716,6 +721,9 @@ export default function Renewal() {
               size="small"
               startIcon={<FiFilter />}
               sx={{
+                height: "34px",
+                padding: "4px 8px",
+                fontSize: "12px",
                 borderColor:
                   yearFilter || monthFilter ? "primary.main" : "grey.300",
                 color: yearFilter || monthFilter ? "primary.main" : "grey.700",
@@ -882,15 +890,15 @@ export default function Renewal() {
         </DialogActions>
       </Dialog>
 
-      <Box sx={{ padding: { xs: "12px", md: "24px" } }}>
+      <Box sx={{ padding: "8px", flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
         {/* Active Filter Indicator */}
         {filter.type && (
           <Box
             sx={{
               display: "flex",
               alignItems: "center",
-              mb: 3,
-              p: 1.5,
+              mb: 1.5,
+              p: 1,
               borderRadius: 2,
               bgcolor: "#F0FDF4",
               border: "1px solid #BBF7D0",
@@ -923,7 +931,8 @@ export default function Renewal() {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              height: "calc(100vh - 200px)",
+              height: "100%",
+              flex: 1,
             }}
           >
             <CircularProgress size={40} sx={{ color: '#0ea5e9' }} />
@@ -932,12 +941,13 @@ export default function Renewal() {
             </Typography>
           </Box>
         ) : excelData.length > 0 ? (
-          <Box className="bg-white rounded-2xl shadow-sm border border-gray-100 transition-shadow hover:shadow-md overflow-hidden">
-            <Box sx={{ width: "100%", overflowX: "auto" }}>
+          <Box className="bg-white rounded-2xl shadow-sm border border-gray-100 transition-shadow hover:shadow-md overflow-hidden flex-1 flex flex-col min-h-0">
+            <Box sx={{ width: "100%", overflow: "hidden", flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}>
               <TableContainer
                 sx={{
-                  maxHeight: 'calc(100vh - 280px)',
-                  overflowX: "auto",
+                  flex: 1,
+                  minHeight: 0,
+                  overflow: "auto",
                   width: "max-content",
                   minWidth: "100%",
                 }}

@@ -15,7 +15,7 @@ const BackHeader = ({
         </h2>
       </div>
 
-      <div className="flex flex-wrap items-center justify-end gap-2 flex-1 w-full sm:w-auto mt-2 sm:mt-0">
+      <div className="flex flex-wrap items-center justify-start sm:justify-end gap-2 w-full md:w-auto max-w-full mt-2 sm:mt-0">
         {children}
         {showBtn && (
           <button

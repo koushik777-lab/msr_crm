@@ -178,8 +178,8 @@ export default function QuotationTable({
     return {};
   };
   return (
-    <div>
-      <TableContainer component={Paper} className="h-[70vh] overflow-x-auto">
+    <div className="w-full flex-1 flex flex-col h-full min-h-0">
+      <TableContainer component={Paper} elevation={0} className="flex-1 min-h-0 overflow-auto">
         <Table stickyHeader size="small" aria-label="quotations table">
           <TableHead>
             <TableRow>

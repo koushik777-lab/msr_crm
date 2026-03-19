@@ -233,15 +233,15 @@ const Leads = () => {
   };
 
   return (
-    <div className="relative">
-      <LeadsWrapper className="w-full bg-white ">
+    <div className="relative h-full flex flex-col">
+      <LeadsWrapper className="w-full h-full flex flex-col bg-white ">
         <BackHeader
           onClick={handleAddLead}
           title="leads table"
           showBtn={true}
           addbuttonText={"Add Lead"}
         >
-          <div className="flex flex-wrap items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-1.5 w-full xl:w-auto max-w-full">
             {!isAgent && (
               <div className="flex items-center gap-1 shrink-0">
                 <TextField
@@ -258,7 +258,7 @@ const Leads = () => {
                     },
                   }}
                   size="small"
-                  sx={{ width: 110 }}
+                  sx={{ width: 95 }}
                 />
                 <TextField
                   label="End Date"
@@ -274,14 +274,14 @@ const Leads = () => {
                       min: startDate || undefined,
                     },
                   }}
-                  sx={{ width: 110 }}
+                  sx={{ width: 95 }}
                 />
                 {(startDate || endDate) && (
                   <Button
                     size="small"
                     variant="outlined"
                     onClick={clearDateFilter}
-                    sx={{ height: "34px", minWidth: "60px", padding: "4px 8px", fontSize: "12px" }}
+                    sx={{ height: "30px", minWidth: "50px", padding: "2px 6px", fontSize: "11px" }}
                   >
                     Clear
                   </Button>
@@ -303,7 +303,7 @@ const Leads = () => {
                   }
                 }}
                 size="small"
-                sx={{ width: 110 }}
+                sx={{ width: 95 }}
                 slotProps={{
                   inputLabel: {
                     shrink: true,
@@ -316,7 +316,7 @@ const Leads = () => {
                 id="combo-box-demo"
                 options={LEAD_STATUS}
                 // getOptionLabel={(option) => option.name}
-                style={{ width: 110 }}
+                style={{ width: 95 }}
                 onChange={(e, val) => {
                   // console.log(val)
                   setSelectedStatus(val);
@@ -341,7 +341,7 @@ const Leads = () => {
                     id="combo-box-demo"
                     options={agents}
                     getOptionLabel={(option) => option.name}
-                    style={{ width: 120 }}
+                    style={{ width: 100 }}
                     onChange={(e, val) => {
                       // console.log(val);
                       // setSelectedStatus(val);
@@ -363,7 +363,7 @@ const Leads = () => {
                   <Button
                     variant="contained"
                     onClick={() => setPopupType("State")}
-                    sx={{ height: "34px", padding: "4px 8px", fontSize: "12px" }}
+                    sx={{ height: "30px", padding: "2px 6px", fontSize: "11px" }}
                   >
                     Assign By State
                   </Button>
@@ -409,7 +409,7 @@ const Leads = () => {
             )}
           </div>
         </BackHeader>
-        <div className="flex gap-4 mt-2 mb-4 h-[calc(100vh-120px)]">
+        <div className="flex gap-4 mt-2 mb-4 flex-1 min-h-0">
           {/* Left Sidebar Filter */}
           <div className="w-[280px] flex-shrink-0 flex flex-col bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="p-4 border-b border-gray-100 bg-gray-50/50">
@@ -541,7 +541,7 @@ const Leads = () => {
 const LeadsWrapper = ({ children, className }) => {
   return (
     <div className={className}>
-      <div>{children}</div>
+      <div className="flex flex-col h-full w-full">{children}</div>
     </div>
   );
 };

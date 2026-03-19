@@ -615,8 +615,7 @@ const Quotation = () => {
   };
 
   return (
-    <div>
-      <h3 className="text-black text-center flex-1 text-5xl"></h3>
+    <div className="flex flex-col h-full w-full">
       <BackHeader
         showBtn={true}
         title={IS_CLIENT_SHEET ? "Client Sheet" : "Quotation Generation"}
@@ -646,12 +645,12 @@ const Quotation = () => {
         key={"quotation"}
       >
         {showAll && !openManualQuotation && (
-          <div className="flex flex-wrap items-center gap-1.5 justify-end">
+          <div className="flex flex-wrap items-center gap-1.5 justify-end w-full xl:w-auto max-w-full">
             {!isAgent && !isBackend && (
               <Autocomplete
                 options={agentList ? agentList : []}
                 getOptionLabel={(option) => option.name}
-                sx={{ width: 110 }}
+                sx={{ width: 95 }}
                 value={selectedAgent}
                 onChange={(e, val) => {
                   setSelectedAgent(val);
@@ -679,7 +678,7 @@ const Quotation = () => {
                   { name: "Shop My Barcode", key: "smb" },
                 ]}
                 getOptionLabel={(option) => option.name}
-                sx={{ width: 110 }}
+                sx={{ width: 95 }}
                 value={selectedQuotationType}
                 disableClearable
                 onChange={(e, val) => {
@@ -704,7 +703,7 @@ const Quotation = () => {
               variant="contained"
               onClick={() => setIsShowDate(!isShowDate)}
               size="small"
-              sx={{ flexShrink: 0, whiteSpace: "nowrap", height: "34px", padding: "4px 8px", fontSize: "12px" }}
+              sx={{ flexShrink: 0, whiteSpace: "nowrap", height: "30px", padding: "2px 6px", fontSize: "11px" }}
             >
               Select date Range
             </Button>
@@ -717,7 +716,7 @@ const Quotation = () => {
                 })
               }
               size="small"
-              sx={{ flexShrink: 0, whiteSpace: "nowrap", height: "34px", padding: "4px 8px", fontSize: "12px" }}
+              sx={{ flexShrink: 0, whiteSpace: "nowrap", height: "30px", padding: "2px 6px", fontSize: "11px" }}
             >
               Clear Range
             </Button>
@@ -728,7 +727,7 @@ const Quotation = () => {
                 onClick={() => {
                   setIsOpenBulk(true);
                 }}
-                sx={{ flexShrink: 0, whiteSpace: "nowrap", height: "34px", padding: "4px 8px", fontSize: "12px" }}
+                sx={{ flexShrink: 0, whiteSpace: "nowrap", height: "30px", padding: "2px 6px", fontSize: "11px" }}
               >
                 Bulk Transfer
               </Button>
@@ -791,7 +790,7 @@ const Quotation = () => {
                 variant="contained"
                 size="small"
                 style={{ backgroundColor: "#4CAF50" }}
-                sx={{ whiteSpace: "nowrap", flexShrink: 0, height: "34px", padding: "4px 8px", fontSize: "12px" }}
+                sx={{ whiteSpace: "nowrap", flexShrink: 0, height: "30px", padding: "2px 6px", fontSize: "11px" }}
                 onClick={() => setOpenExportPopup(true)}
               >
                 Export to Excel
@@ -801,7 +800,7 @@ const Quotation = () => {
               label="Search "
               placeholder="Search by Name/Number"
               size="small"
-              sx={{ width: 125 }}
+              sx={{ width: 100 }}
               onChange={DEBOUNCE(
                 (e) => setSearchQuotations(e.target.value),
                 500,
@@ -1063,7 +1062,7 @@ const Quotation = () => {
           <Loader />
         </div>
       ) : (
-        <main className="w-full h-full p-4 md:p-6 bg-gray-50 rounded-xl flex-1">
+        <main className="w-full flex-1 min-h-0 bg-gray-50 p-2 md:p-4 rounded-xl flex flex-col">
           {!showAll ? (
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 transition-shadow hover:shadow-md">
               <h2 className="text-xl font-bold text-gray-800 mb-6 border-b border-gray-100 pb-4">
@@ -1072,7 +1071,7 @@ const Quotation = () => {
               {getFormBasedOnPdfType()}
             </div>
           ) : (
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 transition-shadow hover:shadow-md h-full flex flex-col">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 transition-shadow hover:shadow-md h-full flex flex-col min-h-0">
               <div className="flex-1 overflow-auto">
                 <QuotationTable
                   // tableHeadersprops={tableHeaderSmb}

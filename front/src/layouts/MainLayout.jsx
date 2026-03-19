@@ -56,10 +56,10 @@ const MainLayout = () => {
         <Header handleLogout={handleLogout} />
 
         <main
-          className={`flex-1 overflow-x-hidden overflow-y-auto ${pathname != "/leads" ? "container max-w-[1836px]" : "w-full"
+          className={`flex flex-col flex-1 overflow-x-hidden overflow-y-auto ${pathname != "/leads" ? "container max-w-[1836px]" : "w-full"
             } mx-auto px-4 pt-0 pb-4`}
         >
-          <div className="w-full h-full">
+          <div className="w-full flex-1 flex flex-col min-h-0">
             <Outlet />
           </div>
         </main>
