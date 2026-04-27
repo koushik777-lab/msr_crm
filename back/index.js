@@ -1,9 +1,10 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const cron = require("node-cron");
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const dotenv = require("dotenv");
 const { connectToDb, getRandomResponse } = require("./src/utils/helpers");
 const authRouter = require("./src/routes/adminAuth");
 const agentAuth = require("./src/routes/agentAuth");
@@ -35,7 +36,6 @@ app.use(
   }),
 );
 app.use(express.json({ limit: "100mb" }));
-dotenv.config();
 // test
 
 // Request timing middleware

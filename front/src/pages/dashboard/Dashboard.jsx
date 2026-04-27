@@ -69,11 +69,10 @@ const Dashboard = ({ setLoading }) => {
         ...prev,
         dashboardData: false,
       }));
-      // console.log("DATA", data);
-
-      setUniversalLoading(false);
     } catch (error) {
       console.error(error?.message);
+    } finally {
+      setUniversalLoading(false);
     }
   }
 
@@ -91,9 +90,10 @@ const Dashboard = ({ setLoading }) => {
         ...prev,
         agentCalls: false,
       }));
-      setUniversalLoading(false);
     } catch (error) {
       console.error(error?.message);
+    } finally {
+      setUniversalLoading(false);
     }
   }
 
@@ -104,8 +104,11 @@ const Dashboard = ({ setLoading }) => {
       } = await axios.get(`${API_URI}/quotationsCount`, getHeaders());
       console.log("QUOTATIONS", quotations);
       setQuotations(quotations);
+    } catch (error) {
+      console.error(error?.message);
+    } finally {
       setUniversalLoading(false);
-    } catch (error) { }
+    }
   };
 
   useEffect(() => {

@@ -1,4 +1,5 @@
 1. in devolopmant mode
+
 cd back
 npm run dev
 
