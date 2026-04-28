@@ -16,6 +16,8 @@ import { Toaster } from "react-hot-toast";
 import Renewal from "../pages/renewal/Renewal";
 import Whatsapp from "../pages/whatsapp/Whatsapp";
 import Sheet from "../pages/client_sheet/Sheet";
+import MasterSheet from "../pages/masterSheet/MasterSheet";
+import PublicMasterSheetForm from "../pages/masterSheet/PublicMasterSheetForm";
 import { API_URI } from "../utils/constants";
 import { getHeaders } from "../utils/helpers";
 import PaymentHistory from "../pages/PaymentHistory/PaymentHistory";
@@ -57,6 +59,7 @@ const AppRoutes = () => {
       {/* <Toaster /> */}
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/public/master-sheet/form" element={<PublicMasterSheetForm />} />
         <Route element={<PrivateRoutes />}>
           <Route element={<MainLayout />}>
             <Route
@@ -84,6 +87,7 @@ const AppRoutes = () => {
             />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/renewal" element={<Renewal />} />
+            <Route path="/master-sheet" element={<MasterSheet />} />
             <Route element={<AdminRoutes />}>
               <Route
                 path="/agents"

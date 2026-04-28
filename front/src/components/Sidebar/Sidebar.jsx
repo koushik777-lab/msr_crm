@@ -93,6 +93,13 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
   });
 
   menuItems.push({
+    path: "/master-sheet",
+    name: "MASTER SHEET",
+    icon: <HiDocumentText className="text-xl" />,
+    show: true,
+  });
+
+  menuItems.push({
     path: "/whatsapp",
     name: "Whatsapp",
     icon: <BsWhatsapp className="text-xl" />,

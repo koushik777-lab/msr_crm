@@ -18,6 +18,7 @@ const RenewalRouter = require("./src/routes/renewal");
 const WhatsappRouter = require("./src/routes/whatsappMarketing");
 const paymentHistoryRouter = require("./src/routes/paymentHistory");
 const onlineTimeRouter = require("./src/routes/OnlineTime");
+const masterSheetRouter = require("./src/routes/masterSheet");
 const { AuthMiddleware } = require("./src/utils/middlewares");
 const {
   syncLeads,
@@ -123,6 +124,7 @@ app.use("/api", RenewalRouter);
 app.use("/api", WhatsappRouter);
 app.use("/api", paymentHistoryRouter);
 app.use("/api", onlineTimeRouter);
+app.use("/api", masterSheetRouter);
 
 // app.get("/", (req, res) => {
 //   // syncLeads();
