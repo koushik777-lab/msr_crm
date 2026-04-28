@@ -22,7 +22,7 @@ const MasterSheetForm = ({ onSuccess, editRecord, onCancelEdit, isPublic = false
             accreditationBody: "", accreditationBodyOther: "",
             certificationBody: "", certificationBodyOther: "",
             standard: "", standardOther: "",
-            issueDate: "", firstSurvDate: "", secondSurvDate: "", expireDate: "",
+            issueDate: new Date().toISOString().split('T')[0], firstSurvDate: "", secondSurvDate: "", expireDate: "",
             companyName: "", address: "", scope: "", certificateNo: "", courierDate: "",
             emailId: "", contactNumber: "", contactPerson: "", marketingExecutive: "",
             clientConsultant: "", clientConsultantOther: "",
@@ -69,10 +69,45 @@ const MasterSheetForm = ({ onSuccess, editRecord, onCancelEdit, isPublic = false
         }
     }, [editRecord]);
 
+    // Automatic Date Calculation Logic
+    useEffect(() => {
+        if (formik.values.issueDate && !editRecord) {
+            const issueDate = new Date(formik.values.issueDate);
+            
+            // Helper function to format date as YYYY-MM-DD
+            const formatDate = (date) => date.toISOString().split('T')[0];
+
+            // 1st Surv Date: Issue Date + 1 Year - 1 Day
+            const firstSurv = new Date(issueDate);
+            firstSurv.setFullYear(firstSurv.getFullYear() + 1);
+            firstSurv.setDate(firstSurv.getDate() - 1);
+            
+            // 2nd Surv Date: Issue Date + 2 Years - 1 Day
+            const secondSurv = new Date(issueDate);
+            secondSurv.setFullYear(secondSurv.getFullYear() + 2);
+            secondSurv.setDate(secondSurv.getDate() - 1);
+            
+            // Expire Date: Issue Date + 3 Years - 1 Day
+            const expire = new Date(issueDate);
+            expire.setFullYear(expire.getFullYear() + 3);
+            expire.setDate(expire.getDate() - 1);
+
+            formik.setFieldValue("firstSurvDate", formatDate(firstSurv));
+            formik.setFieldValue("secondSurvDate", formatDate(secondSurv));
+            formik.setFieldValue("expireDate", formatDate(expire));
+        }
+    }, [formik.values.issueDate, editRecord]);
+
     // This renders the dynamic "Other" box
     const renderConditionalField = (fieldName, label, conditionValue = "Others") => {
-        const isVisible = formik.values[fieldName] === conditionValue || (fieldName === 'clientConsultant' && formik.values[fieldName] === 'Other');
+        const isVisible = Array.isArray(conditionValue)
+            ? conditionValue.includes(formik.values[fieldName])
+            : formik.values[fieldName] === conditionValue;
+
         const otherFieldName = `${fieldName}Other`;
+        const dynamicLabel = fieldName === 'clientConsultant'
+            ? `${formik.values.clientConsultant} Name (optional)`
+            : `Enter ${label} Name`;
 
         return (
             <AnimatePresence>
@@ -80,7 +115,7 @@ const MasterSheetForm = ({ onSuccess, editRecord, onCancelEdit, isPublic = false
                     <Grid item xs={12} component={motion.div} initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.3 }}>
                         <TextField
                             fullWidth id={otherFieldName} name={otherFieldName}
-                            label={`Enter ${label} Name`}
+                            label={dynamicLabel}
                             value={formik.values[otherFieldName]}
                             onChange={formik.handleChange}
                             variant="outlined" size="small"
@@ -164,7 +199,7 @@ const MasterSheetForm = ({ onSuccess, editRecord, onCancelEdit, isPublic = false
                                     {CLIENT_CONSULTANT_OPTIONS.map((option) => (<MenuItem key={option} value={option}>{option}</MenuItem>))}
                                 </TextField>
                             </Grid>
-                            {renderConditionalField("clientConsultant", "Type", "Other")}
+                            {renderConditionalField("clientConsultant", "Name", ["Client", "Consultant"])}
 
                             <Grid item xs={12} md={4}><TextField fullWidth id="amount" name="amount" label="Amount" type="number" value={formik.values.amount} onChange={formik.handleChange} error={formik.touched.amount && Boolean(formik.errors.amount)} helperText={formik.touched.amount && formik.errors.amount} size="small" /></Grid>
                             

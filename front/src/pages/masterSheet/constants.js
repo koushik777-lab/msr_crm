@@ -7,7 +7,7 @@ export const CERTIFICATION_BODIES = [
 ];
 
 export const CLIENT_CONSULTANT_OPTIONS = [
-    "Client", "Consultant", "Other"
+    "Client", "Consultant"
 ];
 
 export const ACCOUNT_NAMES = [

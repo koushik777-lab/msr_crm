@@ -10,6 +10,14 @@ import { getHeaders, DEBOUNCE } from "../../utils/helpers";
 
 const MasterSheetTable = ({ onEdit }) => {
     const [records, setRecords] = useState([]);
+
+    const formatClientConsultant = (record) => {
+        if (!record.clientConsultant) return "-";
+        if (record.clientConsultantOther) {
+            return `${record.clientConsultant} (${record.clientConsultantOther})`;
+        }
+        return record.clientConsultant;
+    };
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1);
     const [limit] = useState(10);
@@ -67,7 +75,10 @@ const MasterSheetTable = ({ onEdit }) => {
             "Expire Date": record.expireDate ? moment(record.expireDate).format("DD/MM/YYYY") : "",
             "Company Name": record.companyName,
             "Certificate No.": record.certificateNo,
-            "Contact Person": record.contactPerson,
+            "Email ID": record.emailId,
+            "Marketing Executive": record.marketingExecutive,
+            "Courier Date": record.courierDate ? moment(record.courierDate).format("DD/MM/YYYY") : "",
+            "Client / Consultant": formatClientConsultant(record),
             "Amount": record.amount,
             "Account Name": record.accountName === "Others" ? record.accountNameOther : record.accountName,
             "Date Received": record.dateReceived ? moment(record.dateReceived).format("DD/MM/YYYY") : "",
@@ -129,7 +140,7 @@ const MasterSheetTable = ({ onEdit }) => {
                             { label: "Marketing Executive", value: selectedRecord.marketingExecutive },
                         ])}
                         {renderDetailSection("Financial & Client Details", [
-                            { label: "Client / Consultant", value: selectedRecord.clientConsultant === "Other" ? selectedRecord.clientConsultantOther : selectedRecord.clientConsultant },
+                            { label: "Client / Consultant", value: formatClientConsultant(selectedRecord) },
                             { label: "Amount", value: selectedRecord.amount },
                             { label: "Account Name", value: selectedRecord.accountName === "Others" ? selectedRecord.accountNameOther : selectedRecord.accountName },
                             { label: "Date Received", value: selectedRecord.dateReceived ? moment(selectedRecord.dateReceived).format("DD/MM/YYYY") : "N/A" },
@@ -206,7 +217,7 @@ const MasterSheetTable = ({ onEdit }) => {
                                     <TableCell sx={{ whiteSpace: 'nowrap' }}>{record.emailId || "-"}</TableCell>
                                     <TableCell sx={{ whiteSpace: 'nowrap' }}>{record.marketingExecutive || "-"}</TableCell>
                                     <TableCell sx={{ whiteSpace: 'nowrap' }}>{record.courierDate ? moment(record.courierDate).format("DD/MM/YYYY") : "-"}</TableCell>
-                                    <TableCell sx={{ whiteSpace: 'nowrap' }}>{record.clientConsultant === "Other" ? record.clientConsultantOther : record.clientConsultant}</TableCell>
+                                    <TableCell sx={{ whiteSpace: 'nowrap' }}>{formatClientConsultant(record)}</TableCell>
                                     <TableCell sx={{ whiteSpace: 'nowrap' }}>{record.amount || "-"}</TableCell>
                                     <TableCell sx={{ whiteSpace: 'nowrap' }}>{record.accountName === "Others" ? record.accountNameOther : record.accountName}</TableCell>
                                     <TableCell sx={{ whiteSpace: 'nowrap' }}>{record.dateReceived ? moment(record.dateReceived).format("DD/MM/YYYY") : "-"}</TableCell>
