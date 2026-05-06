@@ -97,9 +97,9 @@ const PaymentHistory = () => {
     toDate: null,
   });
 
-  const fetchPayments = async () => {
+  const fetchPayments = async (silent = false) => {
     try {
-      setLoading(true);
+      if (!silent && payments.length === 0) setLoading(true);
       const { data } = await axios.get(
         `${API_URI}/payment-history`,
         getHeaders({
@@ -113,7 +113,6 @@ const PaymentHistory = () => {
           }),
         }),
       );
-      console.log("Fetched payments:", data);
       setPayments(data.data || []);
       setLoading(false);
     } catch (error) {
@@ -214,16 +213,18 @@ const PaymentHistory = () => {
             : payment.isDisApproved
               ? "Disapproved"
               : "N/A",
+          "Govt": payment.govt || 0,
+          "TDS": payment.tds || 0,
+          "Body": payment.body || 0,
+          "Ref Amount": payment.refAmount || 0,
+          "Total benefits": (Number(payment.amount || 0) - (
+            Number(payment.govt || 0) +
+            Number(payment.tds || 0) +
+            Number(payment.body || 0) +
+            Number(payment.refAmount || 0) +
+            Number(payment.gst || 0)
+          ))
         };
-
-        // Only add backend fields if user is backend
-        if (isBackend || user?.type === "admin") {
-          paymentData["Government"] = payment.govt;
-          paymentData["TDS"] = payment.tds;
-          paymentData["Body"] = payment.body;
-          paymentData["Reference Amount"] = payment.refAmount;
-          paymentData["Total Benefits"] = payment.totalBenefit;
-        }
 
         // Add name and mobile for consultants
         if (!payment.isClient) {
@@ -272,10 +273,11 @@ const PaymentHistory = () => {
     }
   };
 
-  // useEffect(() => {
-  //   fetchPayments();
-  // }, []);
-  useEffect(DEBOUNCE(fetchPayments, 1000), [filter]);
+  useEffect(() => {
+    fetchPayments(false);
+  }, []);
+
+  useEffect(DEBOUNCE(() => fetchPayments(true), 300), [filter]);
 
   useEffect(() => {
     console.log(dateRange);
@@ -486,21 +488,21 @@ const PaymentHistoryTable = ({ payments, onEdit, fetchPayments }) => {
     });
   };
   const handleApprove = async (id) => {
-    console.log(id);
     const confirm = window.confirm(
       "Are you sure you want to approve this payment?",
     );
     if (!confirm) return;
-    const { data } = await axios.put(
-      `${API_URI}/payment-history/${id}`,
-      { isApproved: true, isDisApproved: false },
-      getHeaders(),
-    );
-    console.log(data);
-    fetchPayments();
     try {
+      const { data } = await axios.put(
+        `${API_URI}/payment-history/${id}`,
+        { isApproved: true, isDisApproved: false },
+        getHeaders(),
+      );
+      // Update local state for lightning fast update and maintaining scroll position
+      fetchPayments(true);
+      getSuccessToast("Payment approved successfully");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       getErrToast(
         error?.response?.data?.message || "Failed to approve payment",
       );
@@ -508,23 +510,23 @@ const PaymentHistoryTable = ({ payments, onEdit, fetchPayments }) => {
   };
 
   const handleDisapprove = async (id) => {
-    console.log(id);
     const confirm = window.confirm(
       "Are you sure you want to disapprove this payment?",
     );
     if (!confirm) return;
-    const { data } = await axios.put(
-      `${API_URI}/payment-history/${id}`,
-      { isDisApproved: true, isApproved: false },
-      getHeaders(),
-    );
-    console.log(data);
-    fetchPayments();
     try {
+      const { data } = await axios.put(
+        `${API_URI}/payment-history/${id}`,
+        { isDisApproved: true, isApproved: false },
+        getHeaders(),
+      );
+      // Update local state for lightning fast update and maintaining scroll position
+      fetchPayments(true);
+      getSuccessToast("Payment disapproved successfully");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       getErrToast(
-        error?.response?.data?.message || "Failed to approve payment",
+        error?.response?.data?.message || "Failed to disapprove payment",
       );
     }
   };
@@ -536,8 +538,8 @@ const PaymentHistoryTable = ({ payments, onEdit, fetchPayments }) => {
       try {
         await axios.delete(`${API_URI}/payment-history/${id}`, getHeaders());
         getSuccessToast("Payment deleted successfully");
-        // Refresh payments after deletion
-        window.location.reload();
+        // Refresh payments silently to maintain scroll position
+        fetchPayments(true);
       } catch (error) {
         console.error("Error deleting payment:", error);
         getErrToast("Failed to delete payment");
