@@ -208,6 +208,7 @@ const PaymentHistory = () => {
           "Payment Mode": payment.paymentMode,
           "Marketing Executive": payment.marketingExecutive,
           Remarks: payment.remarks,
+          "Lead Source": payment.leadSource,
           Approved: payment.isApproved
             ? "Approved"
             : payment.isDisApproved
@@ -646,6 +647,11 @@ const PaymentHistoryTable = ({ payments, onEdit, fetchPayments }) => {
               >
                 Remarks
               </TableCell>
+              <TableCell
+                sx={{ fontWeight: "bold", backgroundColor: "#e3f2fd" }}
+              >
+                Lead Source
+              </TableCell>
               {(isBackend || user?.type === "admin") && (
                 <>
                   {["Govt", "TDS", "Body", "Ref Amount", "Total benefits"].map(
@@ -727,6 +733,7 @@ const PaymentHistoryTable = ({ payments, onEdit, fetchPayments }) => {
                   <TableCell>{payment.paymentMode}</TableCell>
                   <TableCell>{payment.marketingExecutive}</TableCell>
                   <TableCell>{payment.remarks}</TableCell>
+                  <TableCell>{payment.leadSource}</TableCell>
                   {(isBackend || user?.type === "admin") && (
                     <>
                       <TableCell>
