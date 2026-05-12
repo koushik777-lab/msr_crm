@@ -96,7 +96,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
     path: "/master-sheet",
     name: "MASTER SHEET",
     icon: <HiDocumentText className="text-xl" />,
-    show: true,
+    show: user?.email === "admin@msr.com" || user?.email === "backend@msr.com",
   });
 
   menuItems.push({

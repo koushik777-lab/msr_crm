@@ -20,6 +20,7 @@ import {
   Dialog,
   DialogContent,
   DialogActions,
+  Autocomplete,
 } from "@mui/material";
 import { FiEye, FiEdit, FiTrash2 } from "react-icons/fi";
 import BackHeader from "../../components/BackHeader";
@@ -39,6 +40,22 @@ import { DateRangePicker } from "react-date-range";
 import moment from "moment";
 
 // import { Label } from "recharts";
+
+const serviceOptions = [
+  "QCCI ISO",
+  "IAF ISO",
+  "Trademark Registration",
+  "FSSAI Registration",
+  "Barcode Registration",
+  "Trade License",
+  "Digital Signature Certificate (DSC)",
+  "Import Export Code (IEC)",
+  "GST Registration",
+  "GST Filing",
+  "Company Registration",
+  "Website Development",
+  "Income Tax Return (ITR) Filing",
+];
 
 const PaymentHistory = () => {
   const { agentList } = useAgentContext();
@@ -889,13 +906,31 @@ const PaymentForm = ({
           />
         </>
 
-        <TextField
-          fullWidth
-          size="small"
-          label="Services"
-          name="services"
+        <Autocomplete
+          freeSolo
+          options={serviceOptions}
           value={formData.services}
-          onChange={handleInputChange}
+          onInputChange={(event, newValue) => {
+            setFormData({
+              ...formData,
+              services: newValue
+            });
+          }}
+          onChange={(event, newValue) => {
+            setFormData({
+              ...formData,
+              services: newValue || ""
+            });
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              fullWidth
+              size="small"
+              label="Services"
+              name="services"
+            />
+          )}
         />
 
         <TextField
