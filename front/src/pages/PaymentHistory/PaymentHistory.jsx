@@ -485,6 +485,7 @@ const PaymentHistory = () => {
                   handleInputChange={handleInputChange}
                   handleSubmit={handleSubmit}
                   editMode={editMode}
+                  setFormData={setFormData}
                 />
               </div>
             )}
@@ -821,6 +822,7 @@ const PaymentForm = ({
   handleInputChange,
   handleSubmit,
   editMode,
+  setFormData,
 }) => {
   const { isBackend, user } = useAuth();
   const { agentList } = useAgentContext();
@@ -909,11 +911,11 @@ const PaymentForm = ({
         <Autocomplete
           freeSolo
           options={serviceOptions}
-          value={formData.services}
+          value={formData.services || ""}
           onInputChange={(event, newValue) => {
             setFormData({
               ...formData,
-              services: newValue
+              services: newValue || ""
             });
           }}
           onChange={(event, newValue) => {
