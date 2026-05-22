@@ -32,17 +32,19 @@ const MasterSheetForm = ({ onSuccess, editRecord, onCancelEdit, isPublic = false
         onSubmit: async (values) => {
             const loadingToast = toast.loading(editRecord ? "Updating record..." : "Saving record...");
             try {
+                let response;
                 if (editRecord) {
-                    await axios.put(`${API_URI}/master-sheet/${editRecord._id}`, values, getHeaders());
+                    response = await axios.put(`${API_URI}/master-sheet/${editRecord._id}`, values, getHeaders());
                 } else {
                     // Call the public route if generated via link, otherwise the protected route
-                    await axios.post(`${API_URI}/master-sheet${isPublic ? '/public' : ''}`, values, isPublic ? undefined : getHeaders());
+                    response = await axios.post(`${API_URI}/master-sheet${isPublic ? '/public' : ''}`, values, isPublic ? undefined : getHeaders());
                 }
                 toast.dismiss(loadingToast);
                 toast.success(editRecord ? "Record updated successfully!" : "Record added successfully!");
+                const targetType = response.data?.type || "draft";
                 formik.resetForm();
                 if (onCancelEdit) onCancelEdit();
-                if (onSuccess) onSuccess();
+                if (onSuccess) onSuccess(targetType);
             } catch (error) {
                 toast.dismiss(loadingToast);
                 toast.error(error.response?.data?.message || `Failed to ${editRecord ? "update" : "add"} record`);

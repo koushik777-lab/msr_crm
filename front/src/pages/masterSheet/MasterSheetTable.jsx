@@ -8,7 +8,7 @@ import * as XLSX from "xlsx";
 import { API_URI } from "../../utils/constants";
 import { getHeaders, DEBOUNCE } from "../../utils/helpers";
 
-const MasterSheetTable = ({ onEdit }) => {
+const MasterSheetTable = ({ type, onEdit }) => {
     const [records, setRecords] = useState([]);
 
     const formatClientConsultant = (record) => {
@@ -28,13 +28,13 @@ const MasterSheetTable = ({ onEdit }) => {
 
     useEffect(() => {
         fetchRecords();
-    }, [page, search]);
+    }, [page, search, type]);
 
     const fetchRecords = async () => {
         setLoading(true);
         try {
             const response = await axios.get(
-                `${API_URI}/master-sheet?page=${page}&limit=${limit}&search=${search}`,
+                `${API_URI}/master-sheet?type=${type}&page=${page}&limit=${limit}&search=${search}`,
                 getHeaders()
             );
             setRecords(response.data.records);
@@ -84,14 +84,22 @@ const MasterSheetTable = ({ onEdit }) => {
             "Date Received": record.dateReceived ? moment(record.dateReceived).format("DD/MM/YYYY") : "",
         }));
 
+        const exportNames = {
+            draft: "Draft_Records",
+            qcci_ugac: "QCCI_UGAC_Records",
+            qcci_waf: "QCCI_WAF_Records",
+            master_final: "Master_Sheet_Records"
+        };
+        const exportName = exportNames[type] || "MasterSheet";
+
         const worksheet = XLSX.utils.json_to_sheet(dataToExport);
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Master Sheet");
+        XLSX.utils.book_append_sheet(workbook, worksheet, exportName.replace(/_/g, " "));
 
         if (format === "xlsx") {
-            XLSX.writeFile(workbook, "MasterSheet.xlsx");
+            XLSX.writeFile(workbook, `${exportName}.xlsx`);
         } else {
-            XLSX.writeFile(workbook, "MasterSheet.csv", { bookType: "csv" });
+            XLSX.writeFile(workbook, `${exportName}.csv`, { bookType: "csv" });
         }
     };
 
