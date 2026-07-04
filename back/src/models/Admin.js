@@ -10,6 +10,10 @@ const adminSchema= new mongoose.Schema({
     password:{
         type: String,
         required: true
+    },
+    clientSheetVisible: {
+        type: Boolean,
+        default: false
     }
 },{timestamps: true});
 

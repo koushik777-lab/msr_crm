@@ -487,11 +487,7 @@ const Quotation = () => {
         }),
       );
       console.log("Quotations fetched:", quotations);
-      setAllQuotations(
-        isBackend
-          ? quotations.filter((v) => v.agentName == "Backend")
-          : quotations,
-      );
+      setAllQuotations(quotations);
 
       // Update pagination state with data from API
       setPagination((prev) => ({
@@ -646,7 +642,7 @@ const Quotation = () => {
       >
         {showAll && !openManualQuotation && (
           <div className="flex flex-wrap items-center gap-1.5 justify-end w-full xl:w-auto max-w-full">
-            {!isAgent && !isBackend && (
+            {!isAgent && (
               <Autocomplete
                 options={agentList ? agentList : []}
                 getOptionLabel={(option) => option.name}
@@ -670,7 +666,7 @@ const Quotation = () => {
                 )}
               />
             )}
-            {!isAgent && !isBackend && (
+            {!isAgent && (
               <Autocomplete
                 options={[
                   { name: "MSR", key: "msr" },
@@ -720,7 +716,7 @@ const Quotation = () => {
             >
               Clear Range
             </Button>
-            {!isAgent && !isBackend && !isSalesManager && (
+            {!isAgent && !isSalesManager && (
               <Button
                 variant="contained"
                 size="small"
@@ -785,7 +781,7 @@ const Quotation = () => {
               Bulk Transfer
             </Button>}
             */}
-            {!isAgent && !isBackend && !isSalesManager && (
+            {!isAgent && !isSalesManager && (
               <Button
                 variant="contained"
                 size="small"

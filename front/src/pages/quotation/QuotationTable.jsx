@@ -16,11 +16,16 @@ import {
   Autocomplete,
   TextField,
   Pagination,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
 import { FiEye, FiEdit2, FiTrash2 } from "react-icons/fi";
 import MyInput from "../../components/MyInput";
 import { useAuth } from "../../context/AuthContext";
 import moment from "moment";
+import axios from "axios";
+import { API_URI } from "../../utils/constants";
+import { getHeaders } from "../../utils/helpers";
 
 const truncateText = (text, maxLength = 20) => {
   if (!text || typeof text !== "string") return "";
@@ -89,7 +94,21 @@ export default function QuotationTable({
   IS_CLIENT_SHEET,
   quotationType,
 }) {
-  const { isSalesManager, isBackend } = useAuth();
+  const { isSalesManager, isBackend, user, clientSheetVisible, setClientSheetVisible } = useAuth();
+
+  const handleToggleVisibility = async (event) => {
+    const nextVal = event.target.checked;
+    try {
+      const response = await axios.post(
+        `${API_URI}/client-sheet-visibility`,
+        { visible: nextVal },
+        getHeaders()
+      );
+      setClientSheetVisible(response.data.visible);
+    } catch (error) {
+      console.error("Error updating visibility:", error);
+    }
+  };
 
   const getTableHeaders = () => {
     if (quotationType === "msr" || IS_CLIENT_SHEET) {
@@ -217,9 +236,7 @@ export default function QuotationTable({
               .filter((v) =>
                 isSalesManager
                   ? v.agentName != "admin"
-                  : isBackend
-                    ? v.agentName == "Backend"
-                    : true,
+                  : true,
               )
               ?.map((row, rowIndex) => (
                 <TableRow
@@ -311,17 +328,40 @@ export default function QuotationTable({
         </Table>
       </TableContainer>
 
-      {/* Pagination */}
-      {pagination && pagination.total > 0 && (
-        <div className="flex justify-center items-center py-4">
-          <Pagination
-            count={Math.ceil(pagination.total / pagination.limit)}
-            page={pagination.page}
-            onChange={(event, page) => onPageChange(page)}
-            variant="outlined"
-            shape="rounded"
-            color="primary"
-          />
+      {/* Footer / Pagination */}
+      {((IS_CLIENT_SHEET && user?.email === "admin@msr.com") || (pagination && pagination.total > 0)) && (
+        <div className="flex justify-between items-center py-4 px-4 w-full border-t border-gray-150">
+          <div className="flex-1 flex justify-start">
+            {user?.email === "admin@msr.com" && IS_CLIENT_SHEET && (
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={clientSheetVisible}
+                    onChange={handleToggleVisibility}
+                    color="primary"
+                  />
+                }
+                label={
+                  <span className="text-sm font-semibold text-gray-750">
+                    Backend Client Sheet Visibility
+                  </span>
+                }
+              />
+            )}
+          </div>
+          <div className="flex justify-center">
+            {pagination && pagination.total > 0 && (
+              <Pagination
+                count={Math.ceil(pagination.total / pagination.limit)}
+                page={pagination.page}
+                onChange={(event, page) => onPageChange(page)}
+                variant="outlined"
+                shape="rounded"
+                color="primary"
+              />
+            )}
+          </div>
+          <div className="flex-1"></div>
         </div>
       )}
     </div>

@@ -1,4 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
+import axios from "axios";
+import { API_URI } from "../utils/constants";
+import { getHeaders } from "../utils/helpers";
 
 const AuthContext = createContext(null);
 
@@ -11,17 +14,8 @@ export const AuthProvider = ({ children }) => {
   const [isBackend, setIsBackend] = useState(false);
   const [isSalesManager, setIsSalesManager] = useState(false);
   const [isAgent, setIsAgent] = useState(true);
-  // let isBackend = false, isSalesManager = false, isAgent= false;
+  const [clientSheetVisible, setClientSheetVisible] = useState(false);
 
-  // if (user && user.email == "backend@msr.com") {
-  //     isBackend= true;
-  //   }
-  //   if (user && user.email == "sales@msr.com" ) {
-  //       isSalesManager= true;
-  //   }
-  //   if (user && user.type == "agent") {
-  //     isAgent = true
-  //   }
   useEffect(() => {
     if (user && user.email == "backend@msr.com" && !isBackend) {
       setIsBackend(true);
@@ -30,12 +24,25 @@ export const AuthProvider = ({ children }) => {
       setIsSalesManager(true);
       setIsAgent(false);
     } else if (user && (user.email == "admin@msr.com")) {
-      // setIsSalesManager(true);
       setIsAgent(false);
     } else if (user && user.type == "agent") {
       setIsAgent(true);
     }
   }, [user, isBackend, isSalesManager]);
+
+  useEffect(() => {
+    const fetchVisibility = async () => {
+      if (localStorage.getItem("token")) {
+        try {
+          const response = await axios.get(`${API_URI}/client-sheet-visibility`, getHeaders());
+          setClientSheetVisible(response.data.visible);
+        } catch (error) {
+          console.error("Error fetching client sheet visibility:", error);
+        }
+      }
+    };
+    fetchVisibility();
+  }, [user]);
 
   const logout = () => {
     localStorage.removeItem("admin");
@@ -44,11 +51,21 @@ export const AuthProvider = ({ children }) => {
     setIsBackend(false);
     setIsSalesManager(false);
     setIsAgent(false);
+    setClientSheetVisible(false);
   };
   console.log("USER", user);
   return (
     <AuthContext.Provider
-      value={{ user, setUser, logout, isBackend, isSalesManager, isAgent }}
+      value={{
+        user,
+        setUser,
+        logout,
+        isBackend,
+        isSalesManager,
+        isAgent,
+        clientSheetVisible,
+        setClientSheetVisible,
+      }}
     >
       {children}
     </AuthContext.Provider>

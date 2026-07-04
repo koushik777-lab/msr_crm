@@ -17,7 +17,7 @@ import { HiDocumentText } from "react-icons/hi";
 import { TbLayoutSidebarLeftCollapse, TbLayoutSidebarLeftExpand, TbFileInvoice } from "react-icons/tb";
 
 const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
-  const { user, isBackend, isSalesManager, isAgent } = useAuth();
+  const { user, isBackend, isSalesManager, isAgent, clientSheetVisible } = useAuth();
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path;
@@ -54,7 +54,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
     path: "/clientSheet",
     name: "Client Sheet",
     icon: <HiDocumentText className="text-xl" />,
-    show: true,
+    show: isBackend ? clientSheetVisible : true,
   });
 
   menuItems.push({

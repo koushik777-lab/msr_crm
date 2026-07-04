@@ -46,7 +46,7 @@ export const fetchUser = async () => {
 };
 
 const AppRoutes = () => {
-  const { user, isBackend, isSalesManager } = useAuth();
+  const { user, isBackend, isSalesManager, clientSheetVisible } = useAuth();
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -80,7 +80,9 @@ const AppRoutes = () => {
             )}
             <Route path="/quotation" element={<Quotation />} />
 
-            <Route path="/clientSheet" element={<Quotation />} />
+            {(!isBackend || clientSheetVisible) && (
+              <Route path="/clientSheet" element={<Quotation />} />
+            )}
             <Route
               path="/marketing"
               element={isBackend ? <Navigate to="/leads" /> : <Marketing />}

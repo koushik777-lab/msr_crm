@@ -1,4 +1,5 @@
 const PaymentHistory = require("../models/PaymentHistory");
+const AgentModel = require("../models/Agents");
 
 /**
  * Get all payment history records
@@ -211,9 +212,13 @@ const paymentHistoryDashboard = async (req, res) => {
       };
     }
     const allPayments = await PaymentHistory.find(filter).lean();
-    const allExecutives = new Set(
-      allPayments.map((payment) => payment.marketingExecutive),
-    );
+    const activeAgents = await AgentModel.find().select("name").lean();
+    const allExecutives = new Set([
+      ...activeAgents.map((a) => a.name),
+      "admin",
+      "Sales Manager",
+      "Backend",
+    ]);
 
     // Today's date for filtering
     const today = new Date();

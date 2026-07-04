@@ -164,10 +164,43 @@ const getAllAdmins = async (req, res) => {
   }
 };
 
+const getClientSheetVisibility = async (req, res) => {
+  try {
+    const backendAdmin = await AdminModel.findOne({ email: "backend@msr.com" }).lean();
+    return res.status(200).json({
+      visible: backendAdmin ? !!backendAdmin.clientSheetVisible : false,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+const updateClientSheetVisibility = async (req, res) => {
+  try {
+    if (req.user?.email !== "admin@msr.com") {
+      return res.status(403).json({ message: "Forbidden: Only Admin can control visibility" });
+    }
+    const { visible } = req.body;
+    const backendAdmin = await AdminModel.findOneAndUpdate(
+      { email: "backend@msr.com" },
+      { clientSheetVisible: !!visible },
+      { new: true, upsert: true }
+    );
+    return res.status(200).json({
+      message: "Visibility updated successfully",
+      visible: backendAdmin.clientSheetVisible,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   login,
   signup,
   adminAndAgentLogin,
   changePassword,
   getAllAdmins,
+  getClientSheetVisibility,
+  updateClientSheetVisibility,
 };
